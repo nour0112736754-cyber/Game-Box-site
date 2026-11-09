@@ -29,7 +29,7 @@
         </a>
 
         <nav class="header-links" aria-label="Main navigation">
-            <a href="#top">Home</a>
+            <a href="#top" class="active" aria-current="page">Home</a>
             <a href="all-games.html">All Games</a>
             <a href="categories.html">Categories</a>
             <a href="trending.html">Trending</a>
@@ -50,10 +50,11 @@
                     and find your next favorite game.
                 </p>
 
-                <form class="landing-page-search" action="#trending">
+                <form class="landing-page-search" id="homeSearchForm">
                     <input
                         type="search"
-                        placeholder="Search for games..."
+                        id="homeSearch"
+                        placeholder="Search games by name or category..."
                         aria-label="Search for games"
                     >
 
@@ -71,248 +72,23 @@
                         DISCOVER YOUR NEXT ADVENTURE
                     </span>
 
-                    <h2>Trending Games</h2>
+                    <h2>Featured Games</h2>
                 </div>
 
                 <a href="all-games.html" class="btn view-all">View All</a>
             </div>
 
-            <div class="trending-cards">
-                <article class="card">
-                    <img
-                        class="thumb"
-                        src="images/trending-01.jpg"
-                        alt="Game 1 cover"
-                    >
-
-                    <div class="card-info">
-                        <div class="card-name">
-                            <p>Action</p>
-                            <h3>Game 1</h3>
-                        </div>
-
-                        <a
-                            class="details-link"
-                            href="game-details.html"
-                            aria-label="Game 1 details"
-                        >
-                            <img src="images/online-shopping.png" alt="">
-                        </a>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <img
-                        class="thumb"
-                        src="images/trending-01.jpg"
-                        alt="Game 2 cover"
-                    >
-
-                    <div class="card-info">
-                        <div class="card-name">
-                            <p>Action</p>
-                            <h3>Game 2</h3>
-                        </div>
-
-                        <a
-                            class="details-link"
-                            href="game-details.html"
-                            aria-label="Game 2 details"
-                        >
-                            <img src="images/online-shopping.png" alt="">
-                        </a>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <img
-                        class="thumb"
-                        src="images/trending-01.jpg"
-                        alt="Game 3 cover"
-                    >
-
-                    <div class="card-info">
-                        <div class="card-name">
-                            <p>Action</p>
-                            <h3>Game 3</h3>
-                        </div>
-
-                        <a
-                            class="details-link"
-                            href="game-details.html"
-                            aria-label="Game 3 details"
-                        >
-                            <img src="images/online-shopping.png" alt="">
-                        </a>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <img
-                        class="thumb"
-                        src="images/trending-01.jpg"
-                        alt="Game 4 cover"
-                    >
-
-                    <div class="card-info">
-                        <div class="card-name">
-                            <p>Adventure</p>
-                            <h3>Game 4</h3>
-                        </div>
-
-                        <a
-                            class="details-link"
-                            href="game-details.html"
-                            aria-label="Game 4 details"
-                        >
-                            <img src="images/online-shopping.png" alt="">
-                        </a>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <img
-                        class="thumb"
-                        src="images/trending-01.jpg"
-                        alt="Game 5 cover"
-                    >
-
-                    <div class="card-info">
-                        <div class="card-name">
-                            <p>Action</p>
-                            <h3>Game 5</h3>
-                        </div>
-
-                        <a
-                            class="details-link"
-                            href="game-details.html"
-                            aria-label="Game 5 details"
-                        >
-                            <img src="images/online-shopping.png" alt="">
-                        </a>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <img
-                        class="thumb"
-                        src="images/trending-01.jpg"
-                        alt="Game 6 cover"
-                    >
-
-                    <div class="card-info">
-                        <div class="card-name">
-                            <p>Racing</p>
-                            <h3>Game 6</h3>
-                        </div>
-
-                        <a
-                            class="details-link"
-                            href="game-details.html"
-                            aria-label="Game 6 details"
-                        >
-                            <img src="images/online-shopping.png" alt="">
-                        </a>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <img
-                        class="thumb"
-                        src="images/trending-01.jpg"
-                        alt="Game 7 cover"
-                    >
-
-                    <div class="card-info">
-                        <div class="card-name">
-                            <p>Action</p>
-                            <h3>Game 7</h3>
-                        </div>
-
-                        <a
-                            class="details-link"
-                            href="game-details.html"
-                            aria-label="Game 7 details"
-                        >
-                            <img src="images/online-shopping.png" alt="">
-                        </a>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <img
-                        class="thumb"
-                        src="images/trending-01.jpg"
-                        alt="Game 8 cover"
-                    >
-
-                    <div class="card-info">
-                        <div class="card-name">
-                            <p>Sports</p>
-                            <h3>Game 8</h3>
-                        </div>
-
-                        <a
-                            class="details-link"
-                            href="game-details.html"
-                            aria-label="Game 8 details"
-                        >
-                            <img src="images/online-shopping.png" alt="">
-                        </a>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <img
-                        class="thumb"
-                        src="images/trending-01.jpg"
-                        alt="Game 9 cover"
-                    >
-
-                    <div class="card-info">
-                        <div class="card-name">
-                            <p>Adventure</p>
-                            <h3>Game 9</h3>
-                        </div>
-
-                        <a
-                            class="details-link"
-                            href="game-details.html"
-                            aria-label="Game 9 details"
-                        >
-                            <img src="images/online-shopping.png" alt="">
-                        </a>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <img
-                        class="thumb"
-                        src="images/trending-01.jpg"
-                        alt="Game 10 cover"
-                    >
-
-                    <div class="card-info">
-                        <div class="card-name">
-                            <p>Action</p>
-                            <h3>Game 10</h3>
-                        </div>
-
-                        <a
-                            class="details-link"
-                            href="game-details.html"
-                            aria-label="Game 10 details"
-                        >
-                            <img src="images/online-shopping.png" alt="">
-                        </a>
-                    </div>
-                </article>
-            </div>
+            <div class="trending-cards" id="homeGames" aria-live="polite"></div>
         </section>
     </main>
 
     <footer class="footer">
         <p>© 2026 GAME BOX. All rights reserved.</p>
     </footer>
+    <script src="app.js" defer></script>
 </body>
 </html>
+
+
+
+

@@ -91,7 +91,8 @@ a {
 }
 
 .header-links a:hover,
-.header-links a:focus-visible {
+.header-links a:focus-visible,
+.header-links a.active {
     color: var(--color-text);
     background: rgba(139, 92, 246, 0.18);
     outline: none;
@@ -476,3 +477,117 @@ a {
         height: 175px;
     }
 }
+/* Shared catalogue artwork and accessibility refinements */
+:focus-visible {
+    outline: 2px solid var(--color-accent, #22D3EE);
+    outline-offset: 3px;
+}
+
+.game-art {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 150px;
+    overflow: hidden;
+    isolation: isolate;
+    color: #fff;
+    background: linear-gradient(135deg, #18213f, #41246e 55%, #075b70);
+}
+
+.game-art-image {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.game-art::before,
+.game-art::after {
+    position: absolute;
+    z-index: -1;
+    content: "";
+    border-radius: 50%;
+    filter: blur(1px);
+}
+
+.game-art::before {
+    width: 65%;
+    aspect-ratio: 1;
+    top: -40%;
+    right: -12%;
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.game-art::after {
+    width: 45%;
+    aspect-ratio: 1;
+    bottom: -35%;
+    left: -5%;
+    background: rgba(34, 211, 238, 0.18);
+}
+
+.art-orbit {
+    position: absolute;
+    width: 48%;
+    aspect-ratio: 1;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 50%;
+    transform: rotate(-28deg) scaleY(0.38);
+}
+
+.art-mark {
+    color: rgba(255, 255, 255, 0.94);
+    font-size: clamp(42px, 7vw, 82px);
+    font-weight: 900;
+    line-height: 1;
+    text-shadow: 0 8px 35px rgba(0, 0, 0, 0.4);
+}
+
+.art-title {
+    position: absolute;
+    right: 10px;
+    bottom: 9px;
+    left: 10px;
+    overflow: hidden;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-align: center;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.art-valorant { background: linear-gradient(135deg, #171b29, #8d2538 60%, #e84c5b); }
+.art-genshin-impact { background: linear-gradient(135deg, #153447, #2486a0 52%, #d6a95e); }
+.art-warframe { background: linear-gradient(135deg, #111c37, #394a73 55%, #c14c40); }
+.art-trackmania { background: linear-gradient(135deg, #142b2a, #15816d 55%, #b6a743); }
+.art-adventure { background: linear-gradient(135deg, #102d44, #176f88 55%, #db9a4b); }
+.art-action { background: linear-gradient(135deg, #21172e, #723455 55%, #de684d); }
+.art-shooting { background: linear-gradient(135deg, #171b2c, #6c2942 55%, #d85d48); }
+.art-strategy { background: linear-gradient(135deg, #20203b, #514477 55%, #d3a15b); }
+.art-rpg { background: linear-gradient(135deg, #122e31, #34766c 55%, #c7a65e); }
+.art-arcade { background: linear-gradient(135deg, #182b50, #4351a3 55%, #dc548d); }
+.art-racing { background: linear-gradient(135deg, #142b2a, #15816d 55%, #b6a743); }
+
+.card .game-art { height: 155px; min-height: 0; }
+.trending-cards .card-info { align-items: center; }
+.trending-cards .card-name p { margin: 0 0 7px; color: var(--color-accent); font-size: 12px; font-weight: 700; text-transform: uppercase; }
+.trending-cards .card-name h3 { margin: 0; font-size: 16px; }
+.details-link { color: #fff; font-size: 20px; font-weight: 700; text-decoration: none; }
+.details-link:hover { color: #07131C; }
+.games-grid .game-image > .game-art { width: 100%; height: 100%; min-height: 0; }
+
+@media (max-width: 600px) {
+    .card .game-art { height: 120px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+

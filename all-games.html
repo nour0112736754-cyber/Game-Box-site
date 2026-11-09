@@ -49,144 +49,25 @@
                 <option value="all">All Categories</option>
                 <option value="action">Action</option>
                 <option value="adventure">Adventure</option>
-                <option value="racing">Racing</option>
-                <option value="sports">Sports</option>
+                <option value="shooting">Shooting</option>
                 <option value="strategy">Strategy</option>
+                <option value="rpg">RPG</option>
+                <option value="arcade">Arcade</option>
+                <option value="racing">Racing</option>
             </select>
         </section>
 
-        <section class="games-grid" id="gamesGrid">
-            <article class="game-card" data-genre="action">
-                <img src="images/trending-01.jpg" alt="Game 1">
-                <div class="game-info">
-                    <h3>Game 1</h3>
-                    <p>Action</p>
-                    <a href="#" class="play-btn">Play Now</a>
-                </div>
-            </article>
+        <p class="results-count" id="resultsCount" aria-live="polite"></p>
+        <section class="games-grid" id="gamesGrid" aria-live="polite"></section>
 
-            <article class="game-card" data-genre="adventure">
-                <img src="images/trending-01.jpg" alt="Game 2">
-                <div class="game-info">
-                    <h3>Game 2</h3>
-                    <p>Adventure</p>
-                    <a href="#" class="play-btn">Play Now</a>
-                </div>
-            </article>
-
-            <article class="game-card" data-genre="racing">
-                <img src="images/trending-01.jpg" alt="Game 3">
-                <div class="game-info">
-                    <h3>Game 3</h3>
-                    <p>Racing</p>
-                    <a href="#" class="play-btn">Play Now</a>
-                </div>
-            </article>
-
-            <article class="game-card" data-genre="sports">
-                <img src="images/trending-01.jpg" alt="Game 4">
-                <div class="game-info">
-                    <h3>Game 4</h3>
-                    <p>Sports</p>
-                    <a href="#" class="play-btn">Play Now</a>
-                </div>
-            </article>
-
-            <article class="game-card" data-genre="strategy">
-                <img src="images/trending-01.jpg" alt="Game 5">
-                <div class="game-info">
-                    <h3>Game 5</h3>
-                    <p>Strategy</p>
-                    <a href="#" class="play-btn">Play Now</a>
-                </div>
-            </article>
-
-            <article class="game-card" data-genre="action">
-                <img src="images/trending-01.jpg" alt="Game 6">
-                <div class="game-info">
-                    <h3>Game 6</h3>
-                    <p>Action</p>
-                    <a href="#" class="play-btn">Play Now</a>
-                </div>
-            </article>
-
-            <article class="game-card" data-genre="adventure">
-                <img src="images/trending-01.jpg" alt="Game 7">
-                <div class="game-info">
-                    <h3>Game 7</h3>
-                    <p>Adventure</p>
-                    <a href="#" class="play-btn">Play Now</a>
-                </div>
-            </article>
-
-            <article class="game-card" data-genre="racing">
-                <img src="images/trending-01.jpg" alt="Game 8">
-                <div class="game-info">
-                    <h3>Game 8</h3>
-                    <p>Racing</p>
-                    <a href="#" class="play-btn">Play Now</a>
-                </div>
-            </article>
-
-            <article class="game-card" data-genre="sports">
-                <img src="images/trending-01.jpg" alt="Game 9">
-                <div class="game-info">
-                    <h3>Game 9</h3>
-                    <p>Sports</p>
-                    <a href="#" class="play-btn">Play Now</a>
-                </div>
-            </article>
-
-            <article class="game-card" data-genre="strategy">
-                <img src="images/trending-01.jpg" alt="Game 10">
-                <div class="game-info">
-                    <h3>Game 10</h3>
-                    <p>Strategy</p>
-                    <a href="#" class="play-btn">Play Now</a>
-                </div>
-            </article>
-        </section>
-
-        <p id="noGamesMessage" hidden>No games found.</p>
+        <p id="noGamesMessage" hidden>No games match your search. Try another name or category.</p>
     </main>
 
     <footer class="footer">
         <p>© 2026 GAME BOX. All rights reserved.</p>
     </footer>
-
-    <script>
-        const gameSearch = document.getElementById("gameSearch");
-        const genreFilter = document.getElementById("genreFilter");
-        const gameCards = document.querySelectorAll(".game-card");
-        const noGamesMessage = document.getElementById("noGamesMessage");
-
-        function filterGames() {
-            const searchText = gameSearch.value.toLowerCase().trim();
-            const selectedGenre = genreFilter.value;
-            let visibleGames = 0;
-
-            gameCards.forEach(function(card) {
-                const gameName =
-                    card.querySelector("h3").textContent.toLowerCase();
-
-                const matchesSearch = gameName.includes(searchText);
-                const matchesGenre =
-                    selectedGenre === "all" ||
-                    card.dataset.genre === selectedGenre;
-
-                if (matchesSearch && matchesGenre) {
-                    card.style.display = "";
-                    visibleGames++;
-                } else {
-                    card.style.display = "none";
-                }
-            });
-
-            noGamesMessage.hidden = visibleGames !== 0;
-        }
-
-        gameSearch.addEventListener("input", filterGames);
-        genreFilter.addEventListener("change", filterGames);
-    </script>
+    <script src="app.js" defer></script>
 </body>
 </html>
+
+

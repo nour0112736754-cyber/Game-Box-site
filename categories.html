@@ -15,6 +15,7 @@
         rel="stylesheet"
     >
 
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="categories.css">
 </head>
 
@@ -32,7 +33,7 @@
         <nav class="header-links" aria-label="Main navigation">
             <a href="index.html#top">Home</a>
             <a href="all-games.html">All Games</a>
-            <a href="categories.html" class="active">Categories</a>
+            <a href="categories.html" class="active" aria-current="page">Categories</a>
             <a href="trending.html">Trending</a>
         </nav>
     </header>
@@ -62,49 +63,7 @@
                 </div>
             </div>
 
-            <div class="categories-grid">
-                <a class="category-card" href="all-games.html?category=Action">
-                    <span class="category-icon">⚔️</span>
-                    <span class="category-arrow">↗</span>
-                    <h3>Action</h3>
-                    <p>Fast-paced action games.</p>
-                </a>
-
-                <a class="category-card" href="all-games.html?category=Adventure">
-                    <span class="category-icon">🧭</span>
-                    <span class="category-arrow">↗</span>
-                    <h3>Adventure</h3>
-                    <p>Explore worlds and discover stories.</p>
-                </a>
-
-                <a class="category-card" href="all-games.html?category=Shooting">
-                    <span class="category-icon">🎯</span>
-                    <span class="category-arrow">↗</span>
-                    <h3>Shooting</h3>
-                    <p>Test your aim and skills.</p>
-                </a>
-
-                <a class="category-card" href="all-games.html?category=Puzzle">
-                    <span class="category-icon">🧩</span>
-                    <span class="category-arrow">↗</span>
-                    <h3>Puzzle</h3>
-                    <p>Solve puzzles and challenges.</p>
-                </a>
-
-                <a class="category-card" href="all-games.html?category=Strategy">
-                    <span class="category-icon">♟️</span>
-                    <span class="category-arrow">↗</span>
-                    <h3>Strategy</h3>
-                    <p>Plan carefully and outsmart rivals.</p>
-                </a>
-
-                <a class="category-card" href="all-games.html?category=Sports">
-                    <span class="category-icon">🏆</span>
-                    <span class="category-arrow">↗</span>
-                    <h3>Sports</h3>
-                    <p>Enjoy your favorite sports games.</p>
-                </a>
-            </div>
+            <div class="categories-grid" id="categoriesGrid"></div>
         </section>
     </main>
 
@@ -112,5 +71,9 @@
         <p>© 2026 GAME BOX. All rights reserved.</p>
     </footer>
 
+    <script src="app.js" defer></script>
 </body>
 </html>
+
+
+

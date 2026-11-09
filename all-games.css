@@ -209,3 +209,16 @@
         grid-template-columns: 1fr;
     }
 }
+.results-count {
+    margin: -18px 0 18px;
+    color: var(--color-muted);
+    font-size: 14px;
+}
+
+.games-grid .game-art { aspect-ratio: 16 / 10; }
+.games-grid .game-info { display: flex; flex-direction: column; align-items: flex-start; }
+.games-grid .game-info > div { width: 100%; }
+.games-grid .game-info h3 { margin-bottom: 6px; }
+.games-grid .game-info .game-category { margin-bottom: 10px; }
+.games-grid .game-info > .play-btn { margin-top: auto; }
+#noGamesMessage { padding: 28px 14px; background: var(--color-card); border: 1px solid var(--color-border); border-radius: 12px; }
