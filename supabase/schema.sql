@@ -1,5 +1,6 @@
 -- Run this once in Supabase Dashboard > SQL Editor.
--- Download events are shared globally, but a signed-in member can count a game once per UTC day.
+-- Anonymous visitors are assigned a private Supabase Auth identity by the site.
+-- Each visitor can count a game once per UTC day.
 
 create table if not exists public.game_catalog (
     id text primary key
@@ -71,7 +72,7 @@ as $$
         group by clicks.game_id
     ) as stats
     order by stats.clicks desc, stats.game_id asc
-    limit 1;
+    limit 3;
 $$;
 
 revoke all on function public.record_game_download(text) from public, anon, authenticated;

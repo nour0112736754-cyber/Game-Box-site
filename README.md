@@ -4,7 +4,7 @@ A responsive bilingual game discovery and download guide with a catalog of 50 ti
 
 ## Run locally
 
-Open `index.html` in a modern browser. Search, category filters, game details, and Arabic/English switching run without a build step or database.
+Open `index.html` in a modern browser. Search, category filters, game details, and Arabic/English switching run without a build step. Supabase provides shared download-click rankings when configured.
 
 ## Pages
 
@@ -14,10 +14,14 @@ Open `index.html` in a modern browser. Search, category filters, game details, a
 - `trending.html` — editorial weekly picks; the site does not claim to measure live downloads
 - `game-details.html?game=<id>` — game overview, requirements guidance, trailer search, and official publisher link
 
-## Images and video
+## Images and trailers
 
-Each new title has an original local SVG fallback illustration in `images/games/`. The home hero plays a short Pexels gaming-setup background clip and keeps a local poster fallback if the remote video cannot load. Clip: https://www.pexels.com/video/stylish-gaming-setup-with-neon-lights-33074485/. Four game pages include verified YouTube trailer embeds; other pages provide a YouTube search link so viewers can select the publisher channel.
+Each title has local artwork in `images/games/`. The home hero cycles through the three highest-ranked games every 15 seconds, with editorial picks shown until shared download-click data exists. Game trailers open on YouTube.
 
 ## Downloads and requirements
 
 Download buttons lead to publisher websites or launchers. GAME BOX does not host game installers. Requirements and file sizes can change, so the detail page labels unstable or unverified values and directs players to the publisher's current page before installing.
+
+## Supabase setup
+
+Follow the Arabic steps in `supabase/SETUP_AR.md`. Anonymous sign-ins must be enabled for shared download-click rankings; this creates a silent guest session and does not add a login screen.

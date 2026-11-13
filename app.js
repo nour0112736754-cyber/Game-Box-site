@@ -150,42 +150,55 @@ function getDownloadClicks() {
     }
 }
 
-function getTopDownloadedGame() {
+function getTopDownloadedGames(preferredGames = []) {
     const clicks = getDownloadClicks();
-    const leader = Object.entries(clicks)
+    const tracked = Object.entries(clicks)
         .sort((a, b) => Number(b[1]) - Number(a[1]))
-        .find(([id, count]) => GAMES.some((game) => game.id === id) && Number(count) > 0);
-
-    return (leader && GAMES.find((game) => game.id === leader[0]))
-        || GAMES.find((game) => game.id === "valorant")
-        || GAMES[0];
+        .filter(([id, count]) => GAMES.some((game) => game.id === id) && Number(count) > 0)
+        .map(([id]) => GAMES.find((game) => game.id === id));
+    const fallback = WEEKLY_PICKS.map((id) => GAMES.find((game) => game.id === id));
+    const ranked = [...preferredGames, ...tracked, ...fallback];
+    return [...new Map(ranked.filter(Boolean).map((game) => [game.id, game])).values()].slice(0, 3);
 }
 
-function renderHeroBackground() {
-    const stage = document.getElementById("heroVideoStage");
+let heroSlides = [];
+let heroSlideIndex = 0;
+
+function showHeroSlide(index) {
+    const stage = document.getElementById("heroSlideshow");
     if (!stage) return;
 
-    const showGame = (game) => {
-        if (!game || stage.dataset.topGame === game.id) return;
+    if (!heroSlides.length) return;
+    heroSlideIndex = (index + heroSlides.length) % heroSlides.length;
+    stage.querySelectorAll(".hero-slide").forEach((slide, slideIndex) => {
+        slide.classList.toggle("is-active", slideIndex === heroSlideIndex);
+    });
+}
 
+function renderHeroBackground(preferredGames = []) {
+    const stage = document.getElementById("heroSlideshow");
+    if (!stage) return;
+
+    heroSlides = getTopDownloadedGames(preferredGames);
+    heroSlideIndex = 0;
+    stage.innerHTML = heroSlides.map((game, index) => {
         const artwork = GAME_ARTWORK[game.id] || `images/games/${game.id}.svg`;
-        const origin = window.location.protocol === "http:" || window.location.protocol === "https:"
-            ? `&origin=${encodeURIComponent(window.location.origin)}`
-            : "";
-        const video = game.trailerId
-            ? `<iframe class="hero-game-video" src="https://www.youtube.com/embed/${game.trailerId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${game.trailerId}&playsinline=1&rel=0&enablejsapi=1${origin}" title="${game.title} background trailer" tabindex="-1" loading="eager" allow="autoplay; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe>`
-            : "";
+        return `<img class="hero-slide${index === 0 ? " is-active" : ""}" src="${artwork}" alt="" ${index === 0 ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`;
+    }).join("");
+    showHeroSlide(heroSlideIndex);
+}
 
-        stage.dataset.topGame = game.id;
-        stage.innerHTML = `<img class="hero-game-cover" src="${artwork}" alt="" fetchpriority="high">${video}`;
-    };
+async function syncHeroLeaderboard() {
+    if (!window.gameboxSupabase) return;
 
-    showGame(getTopDownloadedGame());
-    if (window.gameboxSupabase) {
-        window.gameboxSupabase.rpc("get_top_downloaded_game").then(({ data, error }) => {
-            if (error || !data?.length) return;
-            showGame(GAMES.find((game) => game.id === data[0].game_id));
-        }).catch(() => {});
+    try {
+        const { data, error } = await window.gameboxSupabase.rpc("get_top_downloaded_game");
+        if (error || !data?.length) return;
+
+        const leaders = data.map((row) => GAMES.find((game) => game.id === row.game_id)).filter(Boolean);
+        if (leaders.length) renderHeroBackground(leaders);
+    } catch {
+        // Keep the local and fallback picks if the database is unavailable.
     }
 }
 
@@ -204,12 +217,21 @@ document.addEventListener("click", (event) => {
         // The official download still opens if browser storage is unavailable.
     }
 
-    const client = window.gameboxSupabase;
-    if (client) {
-        client.auth.getSession().then(({ data }) => {
-            if (data.session) return client.rpc("record_game_download", { p_game_id: gameId });
-            return null;
-        }).catch(() => {});
+    if (window.gameboxSupabase) {
+        window.gameboxSupabase.auth.getSession().then(async ({ data }) => {
+            let session = data.session;
+            if (!session) {
+                const { data: guestData, error } = await window.gameboxSupabase.auth.signInAnonymously();
+                if (error) throw error;
+                session = guestData.session;
+            }
+            if (session) {
+                await window.gameboxSupabase.rpc("record_game_download", { p_game_id: gameId });
+                await syncHeroLeaderboard();
+            }
+        }).catch(() => {
+            // Local counts remain available when anonymous Supabase sign-in is disabled.
+        });
     }
 });
 
@@ -355,7 +377,7 @@ function renderDetails() {
       <div><span class="fact-label">${tx("Platform","المنصة")}</span><strong>${isArabic() ? (game.platformAr||game.platform) : game.platform}</strong></div>
       <div><span class="fact-label">${tx("Game mode","نمط اللعب")}</span><strong>${isArabic() ? (game.modeAr||game.mode) : game.mode}</strong></div></div>
       <a class="primary-button download-button" href="${game.downloadUrl}" target="_blank" rel="noopener noreferrer">${tx("Download from publisher","التنزيل من الناشر الرسمي")} <span aria-hidden="true">↗</span></a>
-      <p class="external-note">${tx("The button opens the publisher's official page or launcher. Sign in to include this click in the shared ranking; the site cannot confirm that a download finished.","الزر يفتح صفحة الناشر أو مشغّله الرسمي. سجّل الدخول لإضافة الضغطة إلى الترتيب المشترك؛ الموقع لا يستطيع التأكد من اكتمال التنزيل.")}</p></div></section>
+      <p class="external-note">${tx("The button opens the publisher's official page or launcher. A click does not confirm that a download finished.","الزر يفتح صفحة الناشر أو مشغّله الرسمي. الضغط على الزر لا يؤكد اكتمال التنزيل.")}</p></div></section>
       <section class="content-section trailer-section"><div class="section-heading"><p class="eyebrow">${tx("OFFICIAL GAME TRAILER","إعلان اللعبة الرسمي")}</p><h2>${tx("Watch the trailer","شاهد تريلر اللعبة")}</h2><p class="section-subtitle">${tx("Open the official game trailer on YouTube.","افتح تريلر اللعبة على يوتيوب.")}</p></div>
       ${(() => { const trailerUrl = game.trailerId ? `https://www.youtube.com/watch?v=${game.trailerId}` : `https://www.youtube.com/results?search_query=${encodeURIComponent(`${gameTitle(game)} official game trailer`)}`; return `<a class="trailer-poster" href="${trailerUrl}" target="_blank" rel="noopener" referrerpolicy="strict-origin-when-cross-origin" aria-label="${tx("Watch the trailer on YouTube","شاهد التريلر على يوتيوب")}: ${gameTitle(game)}">${gameArt(game,"trailer-art")}<span class="trailer-play" aria-hidden="true">▶</span><span class="trailer-caption">${tx("WATCH TRAILER ON YOUTUBE ↗","شاهد التريلر على يوتيوب ↗")}</span></a>`; })()}</section>
       <section class="content-section requirements-section"><div class="section-heading"><p class="eyebrow">${tx("BEFORE YOU DOWNLOAD","قبل التنزيل")}</p><h2>${tx("PC requirements & download info","متطلبات الكمبيوتر ومعلومات التنزيل")}</h2><p class="section-subtitle">${tx("Specifications and file sizes can change. Use the publisher's current page to confirm the requirements for this version.","قد تتغير المواصفات وأحجام الملفات. راجع صفحة الناشر الحالية للتأكد من متطلبات هذا الإصدار.")}</p></div>
@@ -369,8 +391,13 @@ function renderDetails() {
 document.addEventListener("DOMContentLoaded", () => {
     initLanguage();
     renderHeroBackground();
+    document.getElementById("heroNextSlide")?.addEventListener("click", () => showHeroSlide(heroSlideIndex + 1));
     window.setInterval(() => {
-        if (document.visibilityState === "visible") renderHeroBackground();
+        if (document.visibilityState === "visible") showHeroSlide(heroSlideIndex + 1);
+    }, 15000);
+    syncHeroLeaderboard();
+    window.setInterval(() => {
+        if (document.visibilityState === "visible") syncHeroLeaderboard();
     }, 60000);
     renderHome(); renderAllGames(); renderCategories(); renderTrending(); renderDetails();
 });

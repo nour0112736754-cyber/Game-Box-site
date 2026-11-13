@@ -393,3 +393,47 @@ a {
         animation-duration: 0.01ms !important;
     }
 }
+
+/* Larger, clearer type for the Popular games page. */
+.header-links a {
+    font-size: 16px;
+}
+
+.tag,
+.game-category {
+    font-size: 14px;
+}
+
+.hero p,
+.section-heading p,
+.game-info p {
+    font-size: 17px;
+}
+
+.game-info h3 {
+    font-size: 23px;
+}
+
+.rank {
+    font-size: 12px;
+}
+
+.play-btn {
+    font-size: 15px;
+}
+
+.footer {
+    font-size: 15px;
+}
+
+@media (max-width: 600px) {
+    .header-links a {
+        font-size: 15px;
+    }
+
+    .hero p,
+    .section-heading p,
+    .game-info p {
+        font-size: 16px;
+    }
+}
