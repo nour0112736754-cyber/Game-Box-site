@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080D1A">
+    <title>Sign in | GAME BOX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+    <header class="header">
+        <a href="index.html#top" class="logo-link" aria-label="Game Box Home"><img class="logo" src="images/Badge.png" alt="Game Box Logo"></a>
+        <nav class="header-links" aria-label="Main navigation">
+            <a href="index.html#top" data-en="Home" data-ar="الرئيسية"></a>
+            <a href="all-games.html" data-en="All Games" data-ar="كل الألعاب"></a>
+            <a href="categories.html" data-en="Categories" data-ar="التصنيفات"></a>
+            <a href="trending.html" data-en="Popular" data-ar="الأكثر شعبية"></a>
+            <a href="login.html" data-en="Sign in" data-ar="تسجيل الدخول"></a>
+            <button id="languageToggle" class="language-toggle" type="button">العربية</button>
+        </nav>
+    </header>
+    <main class="auth-wrap">
+        <section class="auth-card" aria-labelledby="authTitle">
+            <p class="section-kicker" data-en="YOUR GAME BOX ACCOUNT" data-ar="حسابك في جيم بوكس"></p>
+            <h1 id="authTitle" data-en="Sign in" data-ar="تسجيل الدخول"></h1>
+            <p class="auth-intro" data-en="Create an account or sign in to save your account and contribute to the shared download rankings." data-ar="أنشئ حسابًا أو سجّل الدخول للمساهمة في ترتيب التنزيلات المشترك."></p>
+
+            <div id="authForms">
+                <div class="auth-tabs" role="tablist" aria-label="Account options">
+                    <button class="auth-tab is-active" id="signInTab" type="button" role="tab" aria-selected="true" data-en="Sign in" data-ar="دخول"></button>
+                    <button class="auth-tab" id="signUpTab" type="button" role="tab" aria-selected="false" data-en="Create account" data-ar="إنشاء حساب"></button>
+                </div>
+                <form id="authForm" class="auth-form">
+                    <label for="authEmail" data-en="Email" data-ar="البريد الإلكتروني"></label>
+                    <input id="authEmail" name="email" type="email" autocomplete="email" required>
+                    <label for="authPassword" data-en="Password" data-ar="كلمة المرور"></label>
+                    <input id="authPassword" name="password" type="password" autocomplete="current-password" minlength="8" required>
+                    <button class="btn auth-submit" id="authSubmit" type="submit" data-en="Sign in" data-ar="تسجيل الدخول"></button>
+                </form>
+                <button class="auth-reset" id="resetPassword" type="button" data-en="Forgot password? Send a reset email" data-ar="نسيت كلمة المرور؟ أرسل رسالة لإعادة تعيينها"></button>
+                <form id="passwordUpdateForm" class="auth-form password-update-form" hidden>
+                    <label for="newPassword" data-en="New password" data-ar="كلمة المرور الجديدة"></label>
+                    <input id="newPassword" type="password" autocomplete="new-password" minlength="8" required>
+                    <button class="btn auth-submit" type="submit" data-en="Save new password" data-ar="حفظ كلمة المرور الجديدة"></button>
+                </form>
+            </div>
+
+            <section id="accountPanel" class="account-panel" hidden>
+                <span class="account-avatar" aria-hidden="true">🎮</span>
+                <p data-en="Signed in as" data-ar="تم تسجيل الدخول باسم"></p>
+                <strong id="accountEmail"></strong>
+                <button class="btn auth-submit" id="signOutButton" type="button" data-en="Sign out" data-ar="تسجيل الخروج"></button>
+            </section>
+            <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
+            <p class="auth-footnote" data-en="Your password is handled securely by Supabase Authentication. GAME BOX never stores it." data-ar="تتم إدارة كلمة المرور بأمان عبر Supabase، ولا يحتفظ بها موقع GAME BOX."></p>
+        </section>
+    </main>
+    <footer class="footer"><p>© 2026 GAME BOX · <span data-en="Official sources for every game" data-ar="مصادر رسمية لكل لعبة"></span></p></footer>
+    <script src="supabase-config.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="supabase-client.js" defer></script>
+    <script src="app.js" defer></script>
+    <script src="auth.js" defer></script>
+</body>
+</html>

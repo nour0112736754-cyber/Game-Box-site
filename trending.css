@@ -283,6 +283,22 @@ a {
     outline-offset: 3px;
 }
 
+/* Match trending action buttons to the home search button */
+.play-btn {
+    color: #FFFFFF;
+    background: var(--color-primary);
+    border-color: transparent;
+    border-radius: 12px;
+}
+
+.play-btn:hover,
+.play-btn:focus-visible {
+    color: #07131C;
+    background: var(--color-accent);
+    border-color: transparent;
+    box-shadow: 0 8px 24px rgba(34, 211, 238, 0.18);
+}
+
 .footer {
     padding: 25px 15px;
     color: var(--color-muted);

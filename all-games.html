@@ -1,73 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#080D1A">
-
-    <title>All Games | GAME BOX</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700;900&display=swap"
-        rel="stylesheet"
-    >
-
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="all-games.css">
-</head>
-<body id="top">
-    <header class="header">
-        <a href="index.html#top" class="logo-link" aria-label="Game Box Home">
-            <img class="logo" src="images/Badge.png" alt="Game Box Logo">
-        </a>
-
-        <nav class="header-links" aria-label="Main navigation">
-            <a href="index.html#top">Home</a>
-            <a href="all-games.html" class="active" aria-current="page">All Games</a>
-            <a href="categories.html">Categories</a>
-            <a href="trending.html">Trending</a>
-        </nav>
-    </header>
-
-    <main class="all-games-page">
-        <section class="games-heading">
-            <h1>All <span>Games</span></h1>
-            <p>Discover your next favorite game.</p>
-        </section>
-
-        <section class="games-controls">
-            <input
-                type="search"
-                id="gameSearch"
-                placeholder="Search games..."
-                aria-label="Search games"
-            >
-
-            <select id="genreFilter" aria-label="Filter by category">
-                <option value="all">All Categories</option>
-                <option value="action">Action</option>
-                <option value="adventure">Adventure</option>
-                <option value="shooting">Shooting</option>
-                <option value="strategy">Strategy</option>
-                <option value="rpg">RPG</option>
-                <option value="arcade">Arcade</option>
-                <option value="racing">Racing</option>
-            </select>
-        </section>
-
-        <p class="results-count" id="resultsCount" aria-live="polite"></p>
-        <section class="games-grid" id="gamesGrid" aria-live="polite"></section>
-
-        <p id="noGamesMessage" hidden>No games match your search. Try another name or category.</p>
-    </main>
-
-    <footer class="footer">
-        <p>© 2026 GAME BOX. All rights reserved.</p>
-    </footer>
-    <script src="app.js" defer></script>
-</body>
-</html>
-
-
+<!DOCTYPE html><html lang="en" dir="ltr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#080D1A"><title>All Games | GAME BOX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="all-games.css"></head><body id="top"><header class="header">
+    <a href="index.html#top" class="logo-link" aria-label="Game Box Home"><img class="logo" src="images/Badge.png" alt="Game Box Logo"></a>
+    <nav class="header-links" aria-label="Main navigation">
+        <a href="index.html#top" data-en="Home" data-ar="الرئيسية"></a>
+        <a href="all-games.html" data-en="All Games" data-ar="كل الألعاب"></a>
+        <a href="categories.html" data-en="Categories" data-ar="التصنيفات"></a>
+        <a href="trending.html" data-en="Popular" data-ar="الأكثر شعبية"></a><a href="login.html" data-en="Sign in" data-ar="تسجيل الدخول"></a>
+        <button id="languageToggle" class="language-toggle" type="button">العربية</button>
+    </nav>
+</header><main class="container"><section class="page-hero"><span class="section-kicker" data-en="THE COMPLETE LIBRARY" data-ar="المكتبة الكاملة"></span><h1 data-en="All games" data-ar="كل الألعاب"></h1><p data-en="Search the 50-game collection and filter it by category." data-ar="ابحث في مكتبة الألعاب الـ 50 وصفّها حسب التصنيف."></p></section><section class="listing-section"><div class="games-controls"><input type="search" id="gameSearch" data-en="Search games..." data-ar="ابحث عن لعبة..." data-placeholder aria-label="Search games"><select id="genreFilter" aria-label="Filter by category"></select></div><p class="results-count" id="resultsCount" aria-live="polite"></p><div class="games-grid" id="gamesGrid" aria-live="polite"></div><p id="noGamesMessage" hidden data-en="No games match your search." data-ar="لا توجد ألعاب تطابق بحثك."></p></section></main><footer class="footer"><p>© 2026 GAME BOX · <span data-en="Official sources for every game" data-ar="مصادر رسمية لكل لعبة"></span></p></footer><script src="supabase-config.js" defer></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script><script src="supabase-client.js" defer></script><script src="app.js" defer></script><script src="auth.js" defer></script></body></html>

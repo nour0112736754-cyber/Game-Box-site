@@ -1,79 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Categories | GAME BOX</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700;900&display=swap"
-        rel="stylesheet"
-    >
-
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="categories.css">
-</head>
-
-<body id="top">
-
-    <header class="header">
-        <a href="index.html#top" class="logo-link" aria-label="Game Box Home">
-            <img
-                class="logo"
-                src="images/Badge.png"
-                alt="Game Box Logo"
-            >
-        </a>
-
-        <nav class="header-links" aria-label="Main navigation">
-            <a href="index.html#top">Home</a>
-            <a href="all-games.html">All Games</a>
-            <a href="categories.html" class="active" aria-current="page">Categories</a>
-            <a href="trending.html">Trending</a>
-        </nav>
-    </header>
-
-    <main>
-        <section class="categories-hero">
-            <span class="welcome-text">EXPLORE GAME BOX</span>
-
-            <h1 class="categories-title">
-                Game <span>Categories</span>
-            </h1>
-
-            <p class="categories-description">
-                Discover your next favorite game. Explore different
-                genres and find the perfect game for your style.
-            </p>
-        </section>
-
-        <section class="categories-container">
-            <div class="categories-header">
-                <div>
-                    <span class="section-kicker">
-                        FIND YOUR NEXT ADVENTURE
-                    </span>
-
-                    <h2>Browse Categories</h2>
-                </div>
-            </div>
-
-            <div class="categories-grid" id="categoriesGrid"></div>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <p>© 2026 GAME BOX. All rights reserved.</p>
-    </footer>
-
-    <script src="app.js" defer></script>
-</body>
-</html>
-
-
-
+<!DOCTYPE html><html lang="en" dir="ltr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#080D1A"><title>Categories | GAME BOX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="categories.css"></head><body id="top"><header class="header">
+    <a href="index.html#top" class="logo-link" aria-label="Game Box Home"><img class="logo" src="images/Badge.png" alt="Game Box Logo"></a>
+    <nav class="header-links" aria-label="Main navigation">
+        <a href="index.html#top" data-en="Home" data-ar="الرئيسية"></a>
+        <a href="all-games.html" data-en="All Games" data-ar="كل الألعاب"></a>
+        <a href="categories.html" data-en="Categories" data-ar="التصنيفات"></a>
+        <a href="trending.html" data-en="Popular" data-ar="الأكثر شعبية"></a><a href="login.html" data-en="Sign in" data-ar="تسجيل الدخول"></a>
+        <button id="languageToggle" class="language-toggle" type="button">العربية</button>
+    </nav>
+</header><main class="container"><section class="page-hero"><span class="section-kicker" data-en="CHOOSE YOUR PLAYSTYLE" data-ar="اختر أسلوب لعبك"></span><h1 data-en="Browse categories" data-ar="تصفح التصنيفات"></h1><p data-en="Pick a genre and find your next favorite game." data-ar="اختر تصنيفًا وابحث عن لعبتك المفضلة التالية."></p></section><section class="listing-section"><div class="categories-grid" id="categoriesGrid"></div></section></main><footer class="footer"><p>© 2026 GAME BOX · <span data-en="Official sources for every game" data-ar="مصادر رسمية لكل لعبة"></span></p></footer><script src="supabase-config.js" defer></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script><script src="supabase-client.js" defer></script><script src="app.js" defer></script><script src="auth.js" defer></script></body></html>
