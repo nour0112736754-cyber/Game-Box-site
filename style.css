@@ -13,6 +13,33 @@
     --color-shadow: rgba(0, 0, 0, 0.28);
 }
 
+:root[data-theme="light"] {
+    color-scheme: light;
+    --color-bg: #F3F6FC;
+    --color-bg-soft: #E9EEF8;
+    --color-header: #FFFFFF;
+    --color-card: #FFFFFF;
+    --color-card-hover: #F7F8FF;
+    --color-text: #172033;
+    --color-muted: #58647B;
+    --color-primary: #7045D8;
+    --color-primary-hover: #5E36C4;
+    --color-accent: #007F98;
+    --color-border: rgba(34, 49, 77, 0.16);
+    --color-shadow: rgba(31, 45, 72, 0.12);
+    --bg: #F3F6FC;
+    --bg-soft: #E9EEF8;
+    --header: #FFFFFF;
+    --card: #FFFFFF;
+    --card-hover: #F7F8FF;
+    --text: #172033;
+    --muted: #58647B;
+    --primary: #7045D8;
+    --accent: #007F98;
+    --border: rgba(34, 49, 77, 0.16);
+    --shadow: rgba(31, 45, 72, 0.12);
+}
+
 * {
     box-sizing: border-box;
 }
@@ -596,6 +623,45 @@ a {
 /* GAME BOX 50-game refresh */
 
 .is-rtl{font-family:"Cairo","Roboto",sans-serif}.is-rtl .welcome-text,.is-rtl .section-kicker{letter-spacing:0}.language-toggle{border:1px solid var(--color-border);border-radius:10px;padding:9px 13px;color:var(--color-text);background:rgba(255,255,255,.06);font:inherit;font-weight:700;cursor:pointer}.language-toggle:hover{border-color:var(--color-accent);color:var(--color-accent)}
+
+.theme-toggle {
+    display: inline-grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    color: var(--color-text);
+    background: rgba(255, 255, 255, 0.06);
+    font: inherit;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    outline: none;
+}
+
+:root[data-theme="light"] .header { background: rgba(255, 255, 255, 0.96); }
+body[data-theme="light"] { background: var(--color-bg); }
+body[data-theme="light"] .home-hero { background: #E8EEF8; }
+body[data-theme="light"] .hero-slide { filter: brightness(0.9); }
+body[data-theme="light"] .hero-shade {
+    background:
+        linear-gradient(90deg, rgba(243, 246, 252, 0.96), rgba(243, 246, 252, 0.84) 43%, rgba(243, 246, 252, 0.38)),
+        linear-gradient(0deg, #F3F6FC, transparent 42%);
+}
+body[data-theme="light"] .game-title,
+body[data-theme="light"] .hero-description,
+body[data-theme="light"] .hero-facts,
+body[data-theme="light"] .welcome-text,
+body[data-theme="light"] .all-games-page h1 { color: #172033; }
+body[data-theme="light"] .dashboard-login,
+body[data-theme="light"] .metric-card,
+body[data-theme="light"] .dashboard-panel { background: rgba(255, 255, 255, 0.94); }
 .home-hero {
     position: relative;
     isolation: isolate;
