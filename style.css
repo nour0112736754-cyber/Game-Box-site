@@ -647,17 +647,21 @@ a {
 
 :root[data-theme="light"] .header { background: rgba(255, 255, 255, 0.96); }
 body[data-theme="light"] { background: var(--color-bg); }
-body[data-theme="light"] .home-hero { background: #E8EEF8; }
-body[data-theme="light"] .hero-slide { filter: brightness(0.9); }
+body[data-theme="light"] .home-hero { background: #11182D; }
+body[data-theme="light"] .hero-slide { filter: brightness(0.76) saturate(0.88); }
 body[data-theme="light"] .hero-shade {
     background:
-        linear-gradient(90deg, rgba(243, 246, 252, 0.96), rgba(243, 246, 252, 0.84) 43%, rgba(243, 246, 252, 0.38)),
-        linear-gradient(0deg, #F3F6FC, transparent 42%);
+        linear-gradient(90deg, rgba(6, 11, 24, 0.72), rgba(6, 11, 24, 0.48) 46%, rgba(6, 11, 24, 0.14)),
+        linear-gradient(0deg, rgba(8, 13, 26, 0.8), transparent 48%);
 }
 body[data-theme="light"] .game-title,
 body[data-theme="light"] .hero-description,
-body[data-theme="light"] .hero-facts,
-body[data-theme="light"] .welcome-text,
+body[data-theme="light"] .hero-facts {
+    color: #F8FAFC;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+}
+body[data-theme="light"] .game-title span { color: #22D3EE; }
+body[data-theme="light"] .welcome-text { color: #22D3EE; }
 body[data-theme="light"] .all-games-page h1 { color: #172033; }
 body[data-theme="light"] .dashboard-login,
 body[data-theme="light"] .metric-card,
@@ -822,6 +826,110 @@ body[data-theme="light"] .dashboard-panel { background: rgba(255, 255, 255, 0.94
         gap: 16px;
         flex-wrap: wrap;
     }
+}
+
+/* Larger, consistent typography across the site. */
+body { font-size: 20px; }
+p, .section-note { font-size: 18px; }
+.header-links a, .language-toggle { font-size: 16px; }
+.section-kicker, .welcome-text { font-size: 15px; }
+.section-bar h2 { font-size: clamp(30px, 4vw, 42px); }
+.home-game-grid .card-info h3 { font-size: 18px; }
+.home-category-title { font-size: 19px; }
+.game-category { font-size: 12px; }
+.home-category-count, .footer { font-size: 15px; }
+@media (max-width: 520px) {
+    .header-links a, .language-toggle { font-size: 15px; }
+    .hero-facts { font-size: 15px; }
+}
+
+/* Make the featured artwork clearer in dark mode without losing text contrast. */
+body[data-theme="dark"] .hero-slide { filter: brightness(0.84) saturate(0.92); }
+body[data-theme="dark"] .hero-shade {
+    background:
+        linear-gradient(90deg, rgba(5, 8, 18, 0.72), rgba(5, 8, 18, 0.52) 43%, rgba(5, 8, 18, 0.2)),
+        linear-gradient(0deg, rgba(8, 13, 26, 0.74), transparent 46%);
+}
+
+/* Subtle purple edge keeps cards distinct from both dark and light surfaces. */
+body[data-theme="dark"] .card,
+body[data-theme="dark"] .game-card,
+body[data-theme="dark"] .category-card,
+body[data-theme="dark"] .home-category {
+    border-color: rgba(168, 139, 242, 0.3);
+    box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.16), 0 10px 28px rgba(0, 0, 0, 0.22);
+}
+body[data-theme="light"] .card,
+body[data-theme="light"] .game-card,
+body[data-theme="light"] .category-card,
+body[data-theme="light"] .home-category {
+    border-color: rgba(112, 69, 216, 0.24);
+    box-shadow: 0 0 0 1px rgba(112, 69, 216, 0.1), 0 10px 26px rgba(31, 45, 72, 0.12);
+}
+
+/* Give the light-theme category section and its tiles clearer separation. */
+body[data-theme="light"] .categories-section {
+    background: linear-gradient(180deg, #E9EEF8, #F3F6FC);
+}
+body[data-theme="light"] .home-category {
+    border-color: var(--tone-border);
+    background: var(--tone-bg);
+}
+body[data-theme="light"] .home-category.category-tone-1 { --tone: #B94745; --tone-bg: #FFF0EF; --tone-border: rgba(185, 71, 69, 0.34); --tone-glow: rgba(185, 71, 69, 0.12); }
+body[data-theme="light"] .home-category.category-tone-2 { --tone: #20895C; --tone-bg: #E9F8F1; --tone-border: rgba(32, 137, 92, 0.34); --tone-glow: rgba(32, 137, 92, 0.12); }
+body[data-theme="light"] .home-category.category-tone-3 { --tone: #A75F12; --tone-bg: #FFF5E8; --tone-border: rgba(167, 95, 18, 0.34); --tone-glow: rgba(167, 95, 18, 0.12); }
+body[data-theme="light"] .home-category.category-tone-4 { --tone: #6D50B6; --tone-bg: #F1EDFF; --tone-border: rgba(109, 80, 182, 0.34); --tone-glow: rgba(109, 80, 182, 0.12); }
+body[data-theme="light"] .home-category.category-tone-5 { --tone: #1676A7; --tone-bg: #EAF5FC; --tone-border: rgba(22, 118, 167, 0.34); --tone-glow: rgba(22, 118, 167, 0.12); }
+body[data-theme="light"] .home-category.category-tone-6 { --tone: #167F86; --tone-bg: #E7F7F8; --tone-border: rgba(22, 127, 134, 0.34); --tone-glow: rgba(22, 127, 134, 0.12); }
+body[data-theme="light"] .home-category.category-tone-7 { --tone: #B94363; --tone-bg: #FCEBF0; --tone-border: rgba(185, 67, 99, 0.34); --tone-glow: rgba(185, 67, 99, 0.12); }
+body[data-theme="light"] .home-category.category-tone-8 { --tone: #327A49; --tone-bg: #EBF7ED; --tone-border: rgba(50, 122, 73, 0.34); --tone-glow: rgba(50, 122, 73, 0.12); }
+body[data-theme="light"] .home-category.category-tone-9 { --tone: #9B6A13; --tone-bg: #FBF4E4; --tone-border: rgba(155, 106, 19, 0.34); --tone-glow: rgba(155, 106, 19, 0.12); }
+body[data-theme="light"] .home-category.category-tone-10 { --tone: #87509B; --tone-bg: #F7ECFA; --tone-border: rgba(135, 80, 155, 0.34); --tone-glow: rgba(135, 80, 155, 0.12); }
+
+body[data-theme="light"] .games-controls input,
+body[data-theme="light"] .games-controls select {
+    border-color: rgba(60, 79, 115, 0.28);
+    background: #FFFFFF;
+}
+body[data-theme="light"] .games-controls input:focus-visible,
+body[data-theme="light"] .games-controls select:focus-visible {
+    outline: 3px solid rgba(112, 69, 216, 0.28);
+    outline-offset: 2px;
+}
+
+/* Distinct but subtle separators between the homepage sections. */
+.home-section + .home-section {
+    position: relative;
+    border-top: 2px solid rgba(139, 92, 246, 0.28);
+}
+.home-section + .home-section::before {
+    position: absolute;
+    z-index: 2;
+    top: -2px;
+    left: 3%;
+    right: 3%;
+    height: 3px;
+    content: "";
+    background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.72) 18%, rgba(139, 92, 246, 0.95) 50%, rgba(34, 211, 238, 0.72) 82%, transparent);
+    box-shadow: 0 0 18px rgba(139, 92, 246, 0.34);
+}
+body[data-theme="light"] .home-section + .home-section {
+    border-top-color: rgba(60, 79, 115, 0.3);
+}
+body[data-theme="light"] .home-section + .home-section::before {
+    background: linear-gradient(90deg, transparent, rgba(0, 127, 152, 0.72) 18%, rgba(112, 69, 216, 0.9) 50%, rgba(0, 127, 152, 0.72) 82%, transparent);
+    box-shadow: 0 0 18px rgba(112, 69, 216, 0.24);
+}
+
+.details-link svg {
+    display: block;
+    width: 17px;
+    height: 17px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 @media (prefers-reduced-motion: reduce) {

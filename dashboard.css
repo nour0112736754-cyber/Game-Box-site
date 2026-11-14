@@ -47,3 +47,16 @@
     .dashboard-login-controls { flex-direction: column; }
 }
 @media (max-width: 380px) { .metric-grid { grid-template-columns: 1fr; } }
+
+/* Keep dashboard labels easy to read. */
+body { font-size: 19px; }
+.dashboard-intro h1 { font-size: clamp(34px, 4vw, 48px); }
+.dashboard-intro > p:last-child, .dashboard-footnote, .dashboard-login p { font-size: 17px; }
+.dashboard-login h2, .panel-heading h2 { font-size: 25px; }
+.metric-card > span, .metric-card small, .panel-heading > span,
+.dashboard-status, .dashboard-login-form label, .dashboard-signout,
+.ranking-row { font-size: 16px; }
+.dashboard-footnote { font-size: 16px; }
+@media (max-width: 760px) {
+    .ranking-row { font-size: 15px; }
+}

@@ -290,6 +290,18 @@ a {
     }
 }
 
+/* Improve category page readability on desktop and mobile. */
+body { font-size: 20px; }
+.page-hero h1 { font-size: clamp(42px, 6vw, 68px); }
+.categories-description, .category-card p { font-size: 18px; }
+.category-card h3 { font-size: 25px; }
+.category-count, .footer p { font-size: 16px; }
+.section-kicker, .welcome-text { font-size: 15px; }
+@media (max-width: 600px) {
+    .categories-description, .category-card p { font-size: 17px; }
+    .category-card h3 { font-size: 23px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

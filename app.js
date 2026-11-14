@@ -274,7 +274,7 @@ function gameCard(game, compact = false) {
         <div class="${compact ? "card-info" : "game-info"}">
             <span class="game-category">${genre}</span><h3>${title}</h3>
             ${compact ? "" : `<p>${desc}</p>`}
-            <span class="details-link" aria-hidden="true">↗</span>
+            <span class="details-link" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12h14m-6-7 7 7-7 7"/></svg></span>
         </div>
     </a>`;
 }
