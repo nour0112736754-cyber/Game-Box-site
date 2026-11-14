@@ -279,6 +279,8 @@ function gameCard(game, compact = false) {
     </a>`;
 }
 function renderHome() {
+    document.querySelectorAll("[data-game-total]").forEach(el => el.textContent = GAMES.length);
+    document.querySelectorAll("[data-category-total]").forEach(el => el.textContent = CATEGORY_META.length);
     const latest = document.getElementById("latestGames");
     if (latest) latest.innerHTML = GAMES.filter(game => game.added).slice(0, 10).map(game => gameCard(game, true)).join("");
     const popular = document.getElementById("weeklyGames");
@@ -309,22 +311,49 @@ function renderAllGames() {
     if (!grid) return;
     const search = document.getElementById("gameSearch");
     const filter = document.getElementById("genreFilter");
+    const platformFilter = document.getElementById("platformFilter");
     const empty = document.getElementById("noGamesMessage");
     const count = document.getElementById("resultsCount");
+    const selectedCategory = filter.value;
+    const selectedPlatform = platformFilter?.value || "all";
     filter.innerHTML = `<option value="all">${tx("All categories","كل التصنيفات")}</option>` + CATEGORY_META.map(c => `<option value="${c.id}">${isArabic()?c.nameAr:c.name}</option>`).join("");
+    if (platformFilter) {
+        platformFilter.innerHTML = `<option value="all">${tx("All platforms","كل المنصات")}</option><option value="pc">${tx("PC","كمبيوتر")}</option><option value="mobile">${tx("Mobile","موبايل")}</option><option value="console">${tx("Console","أجهزة ألعاب")}</option>`;
+    }
     const params = new URLSearchParams(window.location.search);
     const wanted = (params.get("category") || "all").toLowerCase();
-    filter.value = CATEGORY_META.some(c => c.id === wanted) ? wanted : "all";
+    filter.value = CATEGORY_META.some(c => c.id === selectedCategory)
+        ? selectedCategory
+        : CATEGORY_META.some(c => c.id === wanted) ? wanted : "all";
+    if (platformFilter && ["all", "pc", "mobile", "console"].includes(selectedPlatform)) {
+        platformFilter.value = selectedPlatform;
+    }
     if (!search.dataset.initialized) { search.value = params.get("search") || ""; search.dataset.initialized = "true"; }
     function update() {
         const term = search.value.trim().toLocaleLowerCase();
         const category = filter.value;
-        const visible = GAMES.filter(game => `${game.title} ${game.titleAr||""} ${game.genre} ${game.description} ${game.descriptionAr||""}`.toLocaleLowerCase().includes(term) && (category === "all" || game.category === category));
+        const platform = platformFilter?.value || "all";
+        const visible = GAMES.filter(game => {
+            const searchable = `${game.title} ${game.titleAr||""} ${game.genre} ${game.description} ${game.descriptionAr||""}`.toLocaleLowerCase();
+            const gamePlatforms = (game.platform || "").toLocaleLowerCase();
+            const matchesPlatform = platform === "all"
+                || (platform === "pc" && /\b(pc|windows|macos|mac|linux)\b/.test(gamePlatforms))
+                || (platform === "mobile" && /\b(mobile|ios|android)\b/.test(gamePlatforms))
+                || (platform === "console" && /\b(consoles?|playstation|xbox|switch)\b/.test(gamePlatforms));
+            return searchable.includes(term)
+                && (category === "all" || game.category === category)
+                && matchesPlatform;
+        });
         grid.innerHTML = visible.map(game => gameCard(game)).join("");
         empty.hidden = visible.length > 0;
         if (count) count.textContent = `${visible.length} ${tx(visible.length === 1 ? "game found" : "games found", "لعبة")}`;
     }
-    if (!search.dataset.bound) { search.addEventListener("input", update); filter.addEventListener("change", update); search.dataset.bound="true"; }
+    if (!search.dataset.bound) {
+        search.addEventListener("input", update);
+        filter.addEventListener("change", update);
+        platformFilter?.addEventListener("change", update);
+        search.dataset.bound = "true";
+    }
     update();
 }
 function renderCategories() {

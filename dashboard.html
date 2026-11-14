@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#080D1A">
-    <title>إحصائيات Game Box</title>
+    <meta name="robots" content="noindex, nofollow">
+    <title>لوحة تحكم Game Box</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -25,15 +26,29 @@
     <main class="dashboard-wrap">
         <section class="dashboard-intro">
             <p class="eyebrow">GAME BOX · لوحة التحكم</p>
-            <h1>إحصائيات التنزيل</h1>
+            <h1>إحصائيات نقرات التنزيل</h1>
             <p>ملخص نقرات أزرار الانتقال إلى صفحات التنزيل الرسمية. النقر لا يعني اكتمال تنزيل اللعبة.</p>
         </section>
 
-        <p class="dashboard-status" id="dashboardStatus" role="status">جارٍ تحميل الإحصائيات…</p>
+        <section class="dashboard-login" id="dashboardLogin" aria-labelledby="dashboardLoginTitle">
+            <h2 id="dashboardLoginTitle">دخول لوحة التحكم</h2>
+            <p>أرسل رابط دخول آمن إلى البريد المرتبط بحساب المشرف، ثم افتحه من صندوق بريدك.</p>
+            <form id="dashboardLoginForm" class="dashboard-login-form">
+                <label for="dashboardEmail">البريد الإلكتروني</label>
+                <div class="dashboard-login-controls">
+                    <input id="dashboardEmail" name="email" type="email" autocomplete="email" required>
+                    <button class="btn" id="dashboardLoginButton" type="submit">أرسل رابط الدخول</button>
+                </div>
+            </form>
+        </section>
 
+        <p class="dashboard-status" id="dashboardStatus" role="status" aria-live="polite">سجّل الدخول لعرض الإحصائيات.</p>
+
+        <div id="dashboardContent" hidden>
         <section class="metric-grid" aria-label="ملخص الإحصائيات">
             <article class="metric-card"><span>إجمالي النقرات</span><strong id="totalClicks">—</strong><small>منذ تشغيل الإحصائيات</small></article>
             <article class="metric-card"><span>نقرات اليوم</span><strong id="todayClicks">—</strong><small>حسب توقيت UTC</small></article>
+            <article class="metric-card"><span>نقرات آخر 7 أيام</span><strong id="weekClicks">—</strong><small>الأيام السبعة الأخيرة</small></article>
             <article class="metric-card"><span>ألعاب عليها نشاط</span><strong id="activeGames">—</strong><small>من أصل 50 لعبة</small></article>
             <article class="metric-card"><span>الأكثر نقرًا</span><strong class="metric-leader" id="topGame">—</strong><small id="topGameClicks">إجمالي النقرات</small></article>
         </section>
@@ -48,7 +63,9 @@
             <div id="gameRanking" class="game-ranking"></div>
         </section>
 
-        <p class="dashboard-footnote">الإحصائيات مجمعة ولا تتضمن أسماء زوار أو حساباتهم. تُسجّل قاعدة البيانات كل نقرة على زر التنزيل.</p>
+        <p class="dashboard-footnote">الإحصائيات مجمعة ولا تتضمن أسماء الزوار. تُسجّل قاعدة البيانات نقرات الأزرار فقط، ولا تؤكد اكتمال التنزيل.</p>
+        <button class="dashboard-signout" id="dashboardSignOut" type="button">تسجيل الخروج من لوحة التحكم</button>
+        </div>
     </main>
 
     <script src="supabase-config.js" defer></script>

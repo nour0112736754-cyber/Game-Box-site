@@ -48,7 +48,7 @@
     justify-content: center;
     align-items: center;
     gap: 14px;
-    max-width: 760px;
+    max-width: 980px;
     margin: 0 auto 35px;
 }
 
@@ -71,6 +71,10 @@
 .games-controls select {
     width: 210px;
     cursor: pointer;
+}
+
+.games-controls select:last-child {
+    width: 190px;
 }
 
 .games-controls input:focus,

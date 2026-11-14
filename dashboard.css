@@ -5,7 +5,16 @@
 .dashboard-intro > p:last-child, .dashboard-footnote { color: var(--color-muted); line-height: 1.8; }
 .dashboard-status { min-height: 24px; color: var(--color-accent); }
 .dashboard-status.is-error { color: #fda4af; }
-.metric-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin: 24px 0; }
+.dashboard-login { max-width: 620px; padding: 24px; border: 1px solid var(--color-border); border-radius: 16px; background: rgba(21, 29, 53, .88); }
+.dashboard-login h2 { margin: 0 0 8px; font-size: 22px; }
+.dashboard-login p { color: var(--color-muted); line-height: 1.7; }
+.dashboard-login-form label { display: block; margin: 18px 0 8px; font-weight: 700; }
+.dashboard-login-controls { display: flex; gap: 10px; }
+.dashboard-login-controls input { flex: 1; min-width: 0; padding: 11px 13px; border: 1px solid var(--color-border); border-radius: 10px; background: var(--color-bg-soft); color: var(--color-text); font: inherit; }
+.dashboard-login-controls input:focus-visible, .dashboard-signout:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 3px; }
+.dashboard-signout { margin-top: 18px; padding: 10px 14px; border: 1px solid var(--color-border); border-radius: 10px; background: transparent; color: var(--color-muted); font: inherit; cursor: pointer; }
+.dashboard-signout:hover { color: var(--color-text); border-color: var(--color-accent); }
+.metric-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; margin: 24px 0; }
 .metric-card, .dashboard-panel { border: 1px solid var(--color-border); border-radius: 16px; background: rgba(21, 29, 53, .88); box-shadow: 0 12px 30px var(--color-shadow); }
 .metric-card { min-width: 0; padding: 22px; display: flex; flex-direction: column; gap: 10px; }
 .metric-card > span, .metric-card small, .panel-heading > span { color: var(--color-muted); }
@@ -35,5 +44,6 @@
     .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
     .metric-card, .dashboard-panel { padding: 17px; }
     .ranking-row { grid-template-columns: minmax(90px, 140px) 1fr 55px; gap: 10px; font-size: 14px; }
+    .dashboard-login-controls { flex-direction: column; }
 }
 @media (max-width: 380px) { .metric-grid { grid-template-columns: 1fr; } }
