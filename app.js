@@ -218,20 +218,13 @@ document.addEventListener("click", (event) => {
     }
 
     if (window.gameboxSupabase) {
-        window.gameboxSupabase.auth.getSession().then(async ({ data }) => {
-            let session = data.session;
-            if (!session) {
-                const { data: guestData, error } = await window.gameboxSupabase.auth.signInAnonymously();
-                if (error) throw error;
-                session = guestData.session;
-            }
-            if (session) {
-                await window.gameboxSupabase.rpc("record_game_download", { p_game_id: gameId });
-                await syncHeroLeaderboard();
-            }
-        }).catch(() => {
-            // Local counts remain available when anonymous Supabase sign-in is disabled.
-        });
+        window.gameboxSupabase.rpc("record_game_download", { p_game_id: gameId })
+            .then(({ error }) => {
+                if (!error) syncHeroLeaderboard();
+            })
+            .catch(() => {
+                // Local counts remain available if the database is unavailable.
+            });
     }
 });
 

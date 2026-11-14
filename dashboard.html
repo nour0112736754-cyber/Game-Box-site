@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080D1A">
+    <title>إحصائيات Game Box</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <header class="header dashboard-header">
+        <a class="logo-link" href="index.html" aria-label="العودة إلى الصفحة الرئيسية">
+            <img class="logo" src="images/Badge.png" alt="Game Box">
+        </a>
+        <nav class="header-links" aria-label="التنقل الرئيسي">
+            <a href="index.html">الصفحة الرئيسية</a>
+            <a href="all-games.html">كل الألعاب</a>
+        </nav>
+    </header>
+
+    <main class="dashboard-wrap">
+        <section class="dashboard-intro">
+            <p class="eyebrow">GAME BOX · لوحة التحكم</p>
+            <h1>إحصائيات التنزيل</h1>
+            <p>ملخص نقرات أزرار الانتقال إلى صفحات التنزيل الرسمية. النقر لا يعني اكتمال تنزيل اللعبة.</p>
+        </section>
+
+        <p class="dashboard-status" id="dashboardStatus" role="status">جارٍ تحميل الإحصائيات…</p>
+
+        <section class="metric-grid" aria-label="ملخص الإحصائيات">
+            <article class="metric-card"><span>إجمالي النقرات</span><strong id="totalClicks">—</strong><small>منذ تشغيل الإحصائيات</small></article>
+            <article class="metric-card"><span>نقرات اليوم</span><strong id="todayClicks">—</strong><small>حسب توقيت UTC</small></article>
+            <article class="metric-card"><span>ألعاب عليها نشاط</span><strong id="activeGames">—</strong><small>من أصل 50 لعبة</small></article>
+            <article class="metric-card"><span>الأكثر نقرًا</span><strong class="metric-leader" id="topGame">—</strong><small id="topGameClicks">إجمالي النقرات</small></article>
+        </section>
+
+        <section class="dashboard-panel trend-panel">
+            <div class="panel-heading"><div><p class="eyebrow">آخر أسبوع</p><h2>حركة النقرات اليومية</h2></div></div>
+            <div class="chart-scroll"><div id="dailyChart" class="daily-chart" aria-label="رسم بياني للنقرات اليومية"></div></div>
+        </section>
+
+        <section class="dashboard-panel games-panel">
+            <div class="panel-heading"><div><p class="eyebrow">ترتيب الألعاب</p><h2>الأكثر نقرًا</h2></div><span id="gameCountLabel">50 لعبة</span></div>
+            <div id="gameRanking" class="game-ranking"></div>
+        </section>
+
+        <p class="dashboard-footnote">الإحصائيات مجمعة ولا تتضمن أسماء زوار أو حساباتهم. تُسجّل قاعدة البيانات كل نقرة على زر التنزيل.</p>
+    </main>
+
+    <script src="supabase-config.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="supabase-client.js" defer></script>
+    <script src="app.js" defer></script>
+    <script src="dashboard.js" defer></script>
+</body>
+</html>
