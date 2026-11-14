@@ -8,7 +8,7 @@ See `supabase/SETUP_AR.md`. Run `supabase/schema.sql` in the Supabase SQL Editor
 
 ## Analytics dashboard
 
-Open `dashboard.html` on the deployed site to view total clicks, clicks today, active games, game rankings, and the last seven days of activity.
+Open `dashboard.html` on the deployed site and request a one-time email link to view total clicks, clicks today and this week, active games, game rankings, and the last seven days of activity. Only emails listed in the private `dashboard_admins` table can read the statistics. The public catalogue does not require an account. The dashboard records download-button clicks, not completed downloads.
 
 ## Deployment
 

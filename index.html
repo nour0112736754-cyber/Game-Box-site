@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="theme.js" defer></script>
 </head>
 <body id="top">
     <header class="header">
@@ -23,6 +24,7 @@
             <a href="categories.html" data-en="Categories" data-ar="التصنيفات"></a>
             <a href="trending.html" data-en="Popular" data-ar="الأكثر شعبية"></a>
             <button id="languageToggle" class="language-toggle" type="button">العربية</button>
+            <button class="theme-toggle" type="button" data-theme-toggle>☀</button>
         </nav>
     </header>
 
@@ -41,8 +43,8 @@
                     <button class="btn" type="submit" data-en="Explore games" data-ar="تصفح الألعاب"></button>
                 </form>
                 <div class="hero-facts">
-                    <span><b>52</b> <i data-en="games" data-ar="لعبة"></i></span>
-                    <span><b>12</b> <i data-en="categories" data-ar="تصنيفات"></i></span>
+                    <span><b data-game-total>52</b> <i data-en="games" data-ar="لعبة"></i></span>
+                    <span><b data-category-total>10</b> <i data-en="categories" data-ar="تصنيفات"></i></span>
                     <span data-en="Official download sources" data-ar="مصادر تنزيل رسمية"></span>
                 </div>
             </div>

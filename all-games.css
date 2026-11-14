@@ -48,7 +48,7 @@
     justify-content: center;
     align-items: center;
     gap: 14px;
-    max-width: 760px;
+    max-width: 980px;
     margin: 0 auto 35px;
 }
 
@@ -71,6 +71,10 @@
 .games-controls select {
     width: 210px;
     cursor: pointer;
+}
+
+.games-controls select:last-child {
+    width: 190px;
 }
 
 .games-controls input:focus,
@@ -238,3 +242,15 @@
 .games-grid .game-info .game-category { margin-bottom: 10px; }
 .games-grid .game-info > .play-btn { margin-top: auto; }
 #noGamesMessage { padding: 28px 14px; background: var(--color-card); border: 1px solid var(--color-border); border-radius: 12px; }
+
+/* Clearer type for the full games catalogue. */
+body { font-size: 20px; }
+.page-hero h1 { font-size: clamp(42px, 6vw, 68px); }
+.page-hero p, .game-info p { font-size: 17px; }
+.game-info h3 { font-size: 21px; }
+.game-category, .results-count { font-size: 15px; }
+.games-controls input, .games-controls select, .play-btn { font-size: 17px; }
+@media (max-width: 700px) {
+    .game-info p { font-size: 16px; }
+    .game-info h3 { font-size: 19px; }
+}

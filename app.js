@@ -52,9 +52,9 @@ const EXTRA_GAMES = [
  {id:"wakfu",title:"WAKFU",genre:"MMO",category:"mmo",icon:"W",description:"A tactical online RPG shaped by player choices and a living ecosystem.",descriptionAr:"لعبة أدوار تكتيكية تتأثر باختيارات اللاعبين ونظام بيئي حي.",overview:"Adventure through a colorful world, fight in turn-based battles, and help shape its regions.",overviewAr:"غامر في عالم ملون وخض معارك بالأدوار وساهم في تشكيل مناطقه.",downloadUrl:"https://www.wakfu.com/en/mmorpg/download",requirementsUrl:"https://www.wakfu.com/en/mmorpg/download",featured:false,added:true},
  {id:"neverwinter",title:"Neverwinter",genre:"RPG",category:"rpg",icon:"NW",description:"A free fantasy MMORPG set in the Dungeons & Dragons universe.",descriptionAr:"لعبة MMORPG خيالية مجانية تدور في عالم Dungeons & Dragons.",overview:"Create an adventurer, explore the Forgotten Realms, and take on quests and dungeons.",overviewAr:"أنشئ مغامرًا واستكشف العوالم المنسية وخض المهام والأبراج المحصنة.",downloadUrl:"https://www.playneverwinter.com/en/",requirementsUrl:"https://www.playneverwinter.com/en/",featured:false,added:true},
  {id:"star-trek-online",title:"Star Trek Online",genre:"MMO",category:"mmo",icon:"STO",description:"Explore the Star Trek universe in a free online role-playing game.",descriptionAr:"استكشف عالم Star Trek في لعبة تقمص أدوار مجانية عبر الإنترنت.",overview:"Captain a starship, build your crew, and explore missions across the Star Trek galaxy.",overviewAr:"قد سفينة فضائية وكون طاقمك واستكشف مهام مجرة Star Trek.",downloadUrl:"https://www.playstartrekonline.com/en/",requirementsUrl:"https://www.playstartrekonline.com/en/",featured:false,added:true},
- {id:"palia",title:"Palia",genre:"Casual",category:"casual",icon:"P",description:"A cozy online life-simulation adventure about crafting and community.",descriptionAr:"مغامرة محاكاة حياة هادئة عبر الإنترنت عن الصناعة والمجتمع.",overview:"Build a home, cook, garden, fish, and explore a welcoming world with friends.",overviewAr:"ابنِ منزلاً واطبخ وازرع واصطد واستكشف عالمًا ودودًا مع أصدقائك.",downloadUrl:"https://palia.com/",requirementsUrl:"https://palia.com/",featured:false,added:true},
- {id:"efootball",title:"eFootball",genre:"Sports",category:"sports",icon:"⚽",description:"A free-to-play football game from KONAMI with online and offline modes.",descriptionAr:"لعبة كرة قدم مجانية من KONAMI تضم أطوارًا عبر الإنترنت وخارجها.",overview:"Build your dream team and play football matches. Visit KONAMI's official page for the current PC version and supported installation options.",overviewAr:"كوّن فريق أحلامك وخض مباريات كرة قدم. راجع صفحة KONAMI الرسمية لمعرفة إصدار الكمبيوتر الحالي وخيارات التثبيت المتاحة.",downloadUrl:"https://www.konami.com/efootball/en-us/",requirementsUrl:"https://www.konami.com/efootball/en-us/",featured:false,added:true},
- {id:"brawlhalla",title:"Brawlhalla",genre:"Fighting",category:"fighting",icon:"⚔",description:"A free platform fighter with online cross-play and a large roster of legends.",descriptionAr:"لعبة قتال منصات مجانية تدعم اللعب المشترك عبر الإنترنت وتضم شخصيات كثيرة.",overview:"Choose a Legend, learn their weapons, and compete in platform-fighting matches. Use the official Brawlhalla page to choose a supported PC installation option.",overviewAr:"اختر شخصية وتعلم أسلحتها ونافس في مباريات قتال المنصات. استخدم صفحة Brawlhalla الرسمية لاختيار وسيلة التثبيت المناسبة للكمبيوتر.",downloadUrl:"https://www.brawlhalla.com/play",requirementsUrl:"https://www.brawlhalla.com/play",featured:false,added:true}
+  {id:"palia",title:"Palia",genre:"Casual",category:"casual",icon:"P",description:"A cozy online life-simulation adventure about crafting and community.",descriptionAr:"مغامرة محاكاة حياة هادئة عبر الإنترنت عن الصناعة والمجتمع.",overview:"Build a home, cook, garden, fish, and explore a welcoming world with friends.",overviewAr:"ابنِ منزلاً واطبخ وازرع واصطد واستكشف عالمًا ودودًا مع أصدقائك.",downloadUrl:"https://palia.com/",requirementsUrl:"https://palia.com/",featured:false,added:true},
+  {id:"efootball",title:"eFootball",genre:"Sports",category:"sports",icon:"⚽",description:"A free-to-play football game from KONAMI with online and offline modes.",descriptionAr:"لعبة كرة قدم مجانية من KONAMI تضم أطوارًا عبر الإنترنت وخارجها.",overview:"Build your dream team and play football matches. Visit KONAMI's official page for the current PC version and supported installation options.",overviewAr:"كوّن فريق أحلامك وخض مباريات كرة قدم. راجع صفحة KONAMI الرسمية لمعرفة إصدار الكمبيوتر الحالي وخيارات التثبيت المتاحة.",downloadUrl:"https://www.konami.com/efootball/en-us/",requirementsUrl:"https://www.konami.com/efootball/en-us/",featured:false,added:true},
+  {id:"brawlhalla",title:"Brawlhalla",genre:"Fighting",category:"fighting",icon:"🥊",description:"A free platform fighter with online cross-play and a large roster of legends.",descriptionAr:"لعبة قتال منصات مجانية تدعم اللعب المشترك عبر الإنترنت وتضم شخصيات كثيرة.",overview:"Choose a Legend, learn their weapons, and compete in platform-fighting matches. Use the official Brawlhalla page to choose a supported PC installation option.",overviewAr:"اختر شخصية وتعلم أسلحتها ونافس في مباريات قتال المنصات. استخدم صفحة Brawlhalla الرسمية لاختيار وسيلة التثبيت المناسبة للكمبيوتر.",downloadUrl:"https://www.brawlhalla.com/play",requirementsUrl:"https://www.brawlhalla.com/play",featured:false,added:true}
 ].map((game) => ({
  ...game,
  titleAr:game.title,
@@ -81,9 +81,9 @@ const CATEGORY_META = [
     { id:"simulation", name:"Simulation", nameAr:"محاكاة", icon:"🚀", description:"Control vehicles and systems.", descriptionAr:"تحكم في المركبات والأنظمة." },
     { id:"arcade", name:"Arcade", nameAr:"أركيد", icon:"🕹️", description:"Jump into quick experiences.", descriptionAr:"ابدأ تجارب لعب سريعة." },
     { id:"racing", name:"Racing", nameAr:"سباقات", icon:"🏁", description:"Race and chase better times.", descriptionAr:"تسابق وحقق أزمنة أفضل." },
-    { id:"casual", name:"Casual", nameAr:"خفيفة ومسلية", icon:"🎉", description:"Relax, create, and unwind.", descriptionAr:"استرخِ وابتكر واستمتع." },
-    { id:"sports", name:"Sports", nameAr:"رياضة", icon:"⚽", description:"Play and compete in your favorite sports.", descriptionAr:"العب ونافس في رياضاتك المفضلة." },
-    { id:"fighting", name:"Fighting", nameAr:"قتال", icon:"🥊", description:"Master fighters, moves, and head-to-head battles.", descriptionAr:"أتقن الشخصيات والحركات ومواجهات القتال." }
+    { id:"casual", name:"Casual", nameAr:"خفيفة ومسلية", icon:"🎉", description:"Relax, create, and unwind.", descriptionAr:"استرخِ وابتكر واستمتع." }
+    ,{ id:"sports", name:"Sports", nameAr:"رياضة", icon:"⚽", description:"Play and compete in your favorite sports.", descriptionAr:"العب ونافس في رياضاتك المفضلة." }
+    ,{ id:"fighting", name:"Fighting", nameAr:"قتال", icon:"🥊", description:"Master fighters, moves, and head-to-head battles.", descriptionAr:"أتقن الشخصيات والحركات ومواجهات القتال." }
 ];
 
 const GAME_ARTWORK = {
@@ -142,7 +142,7 @@ const GAME_ARTWORK = {
 };
 
 
-const WEEKLY_PICKS = ["valorant","genshin-impact","league-of-legends","minecraft","warframe","roblox","world-of-warcraft","path-of-exile","delta-force","once-human","efootball","brawlhalla"];
+const WEEKLY_PICKS = ["valorant","genshin-impact","league-of-legends","minecraft","warframe","roblox","world-of-warcraft","path-of-exile","delta-force","once-human"];
 
 // Static hosting can only remember download button clicks in this browser.
 const DOWNLOAD_CLICKS_KEY = "gamebox-download-clicks";
@@ -280,17 +280,19 @@ function gameCard(game, compact = false) {
         <div class="${compact ? "card-info" : "game-info"}">
             <span class="game-category">${genre}</span><h3>${title}</h3>
             ${compact ? "" : `<p>${desc}</p>`}
-            <span class="details-link" aria-hidden="true">↗</span>
+            <span class="details-link" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12h14m-6-7 7 7-7 7"/></svg></span>
         </div>
     </a>`;
 }
 function renderHome() {
+    document.querySelectorAll("[data-game-total]").forEach(el => el.textContent = GAMES.length);
+    document.querySelectorAll("[data-category-total]").forEach(el => el.textContent = CATEGORY_META.length);
     const latest = document.getElementById("latestGames");
     if (latest) latest.innerHTML = GAMES.filter(game => game.added).slice(0, 10).map(game => gameCard(game, true)).join("");
     const popular = document.getElementById("weeklyGames");
     if (popular) popular.innerHTML = WEEKLY_PICKS.map(id => GAMES.find(game => game.id === id)).filter(Boolean).map(game => gameCard(game, true)).join("");
     const catGrid = document.getElementById("homeCategories");
-    if (catGrid) catGrid.innerHTML = CATEGORY_META.map((category, index) => {
+    if (catGrid) catGrid.innerHTML = CATEGORY_META.slice(0, 8).map((category, index) => {
         const count = GAMES.filter(game => game.category === category.id).length;
         return `<a class="home-category category-tone-${index+1}" href="all-games.html?category=${category.id}">
             <span class="home-category-art" aria-hidden="true">${category.icon}</span>
@@ -315,22 +317,49 @@ function renderAllGames() {
     if (!grid) return;
     const search = document.getElementById("gameSearch");
     const filter = document.getElementById("genreFilter");
+    const platformFilter = document.getElementById("platformFilter");
     const empty = document.getElementById("noGamesMessage");
     const count = document.getElementById("resultsCount");
+    const selectedCategory = filter.value;
+    const selectedPlatform = platformFilter?.value || "all";
     filter.innerHTML = `<option value="all">${tx("All categories","كل التصنيفات")}</option>` + CATEGORY_META.map(c => `<option value="${c.id}">${isArabic()?c.nameAr:c.name}</option>`).join("");
+    if (platformFilter) {
+        platformFilter.innerHTML = `<option value="all">${tx("All platforms","كل المنصات")}</option><option value="pc">${tx("PC","كمبيوتر")}</option><option value="mobile">${tx("Mobile","موبايل")}</option><option value="console">${tx("Console","أجهزة ألعاب")}</option>`;
+    }
     const params = new URLSearchParams(window.location.search);
     const wanted = (params.get("category") || "all").toLowerCase();
-    filter.value = CATEGORY_META.some(c => c.id === wanted) ? wanted : "all";
+    filter.value = CATEGORY_META.some(c => c.id === selectedCategory)
+        ? selectedCategory
+        : CATEGORY_META.some(c => c.id === wanted) ? wanted : "all";
+    if (platformFilter && ["all", "pc", "mobile", "console"].includes(selectedPlatform)) {
+        platformFilter.value = selectedPlatform;
+    }
     if (!search.dataset.initialized) { search.value = params.get("search") || ""; search.dataset.initialized = "true"; }
     function update() {
         const term = search.value.trim().toLocaleLowerCase();
         const category = filter.value;
-        const visible = GAMES.filter(game => `${game.title} ${game.titleAr||""} ${game.genre} ${game.description} ${game.descriptionAr||""}`.toLocaleLowerCase().includes(term) && (category === "all" || game.category === category));
+        const platform = platformFilter?.value || "all";
+        const visible = GAMES.filter(game => {
+            const searchable = `${game.title} ${game.titleAr||""} ${game.genre} ${game.description} ${game.descriptionAr||""}`.toLocaleLowerCase();
+            const gamePlatforms = (game.platform || "").toLocaleLowerCase();
+            const matchesPlatform = platform === "all"
+                || (platform === "pc" && /\b(pc|windows|macos|mac|linux)\b/.test(gamePlatforms))
+                || (platform === "mobile" && /\b(mobile|ios|android)\b/.test(gamePlatforms))
+                || (platform === "console" && /\b(consoles?|playstation|xbox|switch)\b/.test(gamePlatforms));
+            return searchable.includes(term)
+                && (category === "all" || game.category === category)
+                && matchesPlatform;
+        });
         grid.innerHTML = visible.map(game => gameCard(game)).join("");
         empty.hidden = visible.length > 0;
         if (count) count.textContent = `${visible.length} ${tx(visible.length === 1 ? "game found" : "games found", "لعبة")}`;
     }
-    if (!search.dataset.bound) { search.addEventListener("input", update); filter.addEventListener("change", update); search.dataset.bound="true"; }
+    if (!search.dataset.bound) {
+        search.addEventListener("input", update);
+        filter.addEventListener("change", update);
+        platformFilter?.addEventListener("change", update);
+        search.dataset.bound = "true";
+    }
     update();
 }
 function renderCategories() {
@@ -355,7 +384,7 @@ function renderDetails() {
     const id = new URLSearchParams(window.location.search).get("game");
     const game = GAMES.find(item => item.id === id);
     if (!game) {
-        page.innerHTML = `<section class="not-found"><span aria-hidden="true">🎮</span><h1>${tx("Game not found","اللعبة غير موجودة")}</h1><p>${tx("Choose a game from the catalog to see its details.","اختر لعبة من القائمة لعرض تفاصيلها.")}</p><a class="primary-button" href="all-games.html">${tx("Browse all 62 games","تصفح كل الألعاب الـ 62")}</a></section>`;
+        page.innerHTML = `<section class="not-found"><span aria-hidden="true">🎮</span><h1>${tx("Game not found","اللعبة غير موجودة")}</h1><p>${tx("Choose a game from the catalog to see its details.","اختر لعبة من القائمة لعرض تفاصيلها.")}</p><a class="primary-button" href="all-games.html">${tx("Browse all 52 games","تصفح كل الألعاب الـ 52")}</a></section>`;
         return;
     }
     document.title = `${gameTitle(game)} | GAME BOX`;
@@ -400,3 +429,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 60000);
     renderHome(); renderAllGames(); renderCategories(); renderTrending(); renderDetails();
 });
+
