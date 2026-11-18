@@ -14,7 +14,19 @@ function setStatus(message, isError = false) {
 function showLogin(message, isError = false) {
     document.getElementById("dashboardLogin").hidden = false;
     document.getElementById("dashboardContent").hidden = true;
+    document.getElementById("dashboardLoginForm").hidden = false;
+    document.getElementById("dashboardNewPasswordForm").hidden = true;
+    document.getElementById("dashboardResetButton").hidden = false;
     setStatus(message, isError);
+}
+
+function showPasswordRecovery() {
+    document.getElementById("dashboardLogin").hidden = false;
+    document.getElementById("dashboardContent").hidden = true;
+    document.getElementById("dashboardLoginForm").hidden = true;
+    document.getElementById("dashboardResetButton").hidden = true;
+    document.getElementById("dashboardNewPasswordForm").hidden = false;
+    setStatus("اكتب كلمة مرور جديدة لا تقل عن 8 أحرف.");
 }
 
 function renderDailyChart(rows) {
@@ -115,18 +127,51 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (!email) return;
 
         button.disabled = true;
-        setStatus("جارٍ إرسال رابط الدخول الآمن إلى بريدك…");
-        const { error } = await client.auth.signInWithOtp({
-            email,
-            options: { emailRedirectTo: window.location.href.split("#")[0] }
-        });
+        const password = document.getElementById("dashboardPassword").value;
+        setStatus("جارٍ التحقق من بيانات الدخول…");
+        const { error } = await client.auth.signInWithPassword({ email, password });
         button.disabled = false;
 
         if (error) {
-            setStatus("تعذر إرسال الرابط. تحقق من إعداد البريد في Supabase وحاول مرة أخرى.", true);
+            setStatus("تعذر تسجيل الدخول. تحقق من البريد وكلمة المرور، أو استخدم رابط إعادة التعيين.", true);
             return;
         }
-        setStatus("تم إرسال رابط الدخول. افتحه من بريدك للعودة إلى لوحة التحكم.");
+        const { data } = await client.auth.getSession();
+        if (data.session) await loadDashboard(data.session);
+    });
+
+    document.getElementById("dashboardResetButton").addEventListener("click", async () => {
+        const email = document.getElementById("dashboardEmail").value.trim().toLowerCase();
+        if (!email) {
+            setStatus("اكتب بريد حساب المشرف أولًا لإرسال رابط إعادة التعيين.", true);
+            document.getElementById("dashboardEmail").focus();
+            return;
+        }
+        const resetButton = document.getElementById("dashboardResetButton");
+        resetButton.disabled = true;
+        const redirectTo = new URL("dashboard.html", window.location.href).href;
+        const { error } = await client.auth.resetPasswordForEmail(email, { redirectTo });
+        resetButton.disabled = false;
+        if (error) {
+            setStatus("تعذر إرسال رابط إعادة التعيين. راجع إعدادات البريد في Supabase.", true);
+            return;
+        }
+        setStatus("أُرسل رابط إعادة التعيين إلى بريد الحساب. افتحه ثم عيّن كلمة المرور الجديدة هنا.");
+    });
+
+    document.getElementById("dashboardNewPasswordForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const password = document.getElementById("dashboardNewPassword").value;
+        const saveButton = document.getElementById("dashboardSavePasswordButton");
+        saveButton.disabled = true;
+        const { data, error } = await client.auth.updateUser({ password });
+        saveButton.disabled = false;
+        if (error) {
+            setStatus("تعذر حفظ كلمة المرور. تأكد أنها 8 أحرف على الأقل ثم أعد المحاولة.", true);
+            return;
+        }
+        window.history.replaceState({}, document.title, window.location.pathname);
+        await loadDashboard(data.user ? (await client.auth.getSession()).data.session : null);
     });
 
     document.getElementById("dashboardSignOut").addEventListener("click", async () => {
@@ -139,10 +184,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         showLogin("تعذر التحقق من الجلسة. أعد تحميل الصفحة وحاول مجددًا.", true);
         return;
     }
-    if (data.session) await loadDashboard(data.session);
+    if (data.session && window.location.hash.includes("type=recovery")) {
+        showPasswordRecovery();
+    } else if (data.session) {
+        await loadDashboard(data.session);
+    }
 
     client.auth.onAuthStateChange((event, session) => {
-        if (event === "SIGNED_IN" && session) {
+        if (event === "PASSWORD_RECOVERY") {
+            showPasswordRecovery();
+        } else if (event === "SIGNED_IN" && session) {
             window.setTimeout(() => loadDashboard(session), 0);
         } else if (event === "SIGNED_OUT") {
             showLogin("سجّل الدخول بالبريد الإلكتروني المعتمد لعرض الإحصائيات.");

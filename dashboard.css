@@ -60,3 +60,7 @@ body { font-size: 19px; }
 @media (max-width: 760px) {
     .ranking-row { font-size: 15px; }
 }
+.dashboard-login-form > input { width: 100%; box-sizing: border-box; margin: 0 0 8px; padding: 11px 13px; border: 1px solid var(--color-border); border-radius: 10px; background: var(--color-bg-soft); color: var(--color-text); font: inherit; }
+.dashboard-reset-link { margin-top: 14px; padding: 0; border: 0; color: var(--color-accent); background: none; font: inherit; font-size: 15px; text-decoration: underline; cursor: pointer; }
+.dashboard-reset-link:disabled { opacity: .65; cursor: wait; }
+.dashboard-login-form [hidden] { display: none !important; }

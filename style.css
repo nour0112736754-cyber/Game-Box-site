@@ -1084,3 +1084,7 @@ p,
 
 .category-tone-11{--tone:#ef7b71;--tone-bg:rgba(89,35,42,.46);--tone-border:rgba(239,123,113,.25);--tone-glow:rgba(239,123,113,.22)}.category-tone-12{--tone:#5cbbec;--tone-bg:rgba(24,54,78,.5);--tone-border:rgba(92,187,236,.25);--tone-glow:rgba(92,187,236,.22)}
 
+.dashboard-quick-link { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 38px; padding: 7px 11px; border: 1px solid var(--color-border); border-radius: 10px; color: var(--color-text); background: rgba(255,255,255,.06); font-size: 14px; font-weight: 700; text-decoration: none; white-space: nowrap; transition: border-color .2s, color .2s, background-color .2s; }
+.dashboard-quick-link:hover, .dashboard-quick-link:focus-visible { border-color: var(--color-accent); color: var(--color-accent); background: rgba(34,211,238,.08); outline: none; }
+@media (max-width: 520px) { .dashboard-quick-link { gap: 5px; min-height: 34px; padding: 6px 8px; font-size: 12px; } }
+

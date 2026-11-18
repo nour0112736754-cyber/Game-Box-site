@@ -34,12 +34,22 @@
 
         <section class="dashboard-login" id="dashboardLogin" aria-labelledby="dashboardLoginTitle">
             <h2 id="dashboardLoginTitle">دخول لوحة التحكم</h2>
-            <p>أرسل رابط دخول آمن إلى البريد المرتبط بحساب المشرف، ثم افتحه من صندوق بريدك.</p>
+            <p>استخدم البريد وكلمة المرور المرتبطين بحساب المشرف.</p>
             <form id="dashboardLoginForm" class="dashboard-login-form">
                 <label for="dashboardEmail">البريد الإلكتروني</label>
+                <input id="dashboardEmail" name="email" type="email" autocomplete="email" required>
+                <label for="dashboardPassword">كلمة المرور</label>
                 <div class="dashboard-login-controls">
-                    <input id="dashboardEmail" name="email" type="email" autocomplete="email" required>
-                    <button class="btn" id="dashboardLoginButton" type="submit">أرسل رابط الدخول</button>
+                    <input id="dashboardPassword" name="password" type="password" autocomplete="current-password" placeholder="كلمة المرور" required>
+                    <button class="btn" id="dashboardLoginButton" type="submit">دخول</button>
+                </div>
+            </form>
+            <button class="dashboard-reset-link" id="dashboardResetButton" type="button">نسيت كلمة المرور؟ أرسل رابط إعادة تعيين</button>
+            <form id="dashboardNewPasswordForm" class="dashboard-login-form" hidden>
+                <label for="dashboardNewPassword">كلمة المرور الجديدة</label>
+                <input id="dashboardNewPassword" type="password" autocomplete="new-password" minlength="8" required>
+                <div class="dashboard-login-controls">
+                    <button class="btn" id="dashboardSavePasswordButton" type="submit">حفظ كلمة المرور</button>
                 </div>
             </form>
         </section>
