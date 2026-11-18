@@ -10,6 +10,7 @@ const DASHBOARD_MESSAGES = {
     "تعذر تسجيل الدخول. تحقق من البريد وكلمة المرور، أو استخدم رابط إعادة التعيين.": "Sign-in failed. Check your email and password, or use the reset link.",
     "اكتب بريد حساب المشرف أولًا لإرسال رابط إعادة التعيين.": "Enter the administrator email first to receive a reset link.",
     "تعذر إرسال رابط إعادة التعيين. راجع إعدادات البريد في Supabase.": "Could not send the reset link. Check email settings in Supabase.",
+    "خدمة البريد الافتراضية في Supabase محدودة؛ انتظر قليلًا ثم أعد المحاولة، أو أعدد SMTP مخصصًا لإرسال الرسائل إلى أي بريد.": "Supabase's default email service is limited. Wait before retrying, or configure custom SMTP to send to any address.",
     "أُرسل رابط إعادة التعيين إلى بريد الحساب. افتحه ثم عيّن كلمة المرور الجديدة هنا.": "A reset link was sent to the account email. Open it, then set the new password here.",
     "تعذر حفظ كلمة المرور. تأكد أنها 8 أحرف على الأقل ثم أعد المحاولة.": "Could not save the password. Make sure it has at least 8 characters and try again.",
     "تم تسجيل الخروج من لوحة التحكم.": "You have signed out of the dashboard.",
@@ -36,6 +37,34 @@ function setStatus(message, isError = false) {
     status.dataset.ar = message;
     status.textContent = dashboardText(englishMessage, message);
     status.classList.toggle("is-error", isError);
+}
+
+function setResetErrorStatus(error) {
+    const code = String(error?.code || "").toLowerCase();
+    const detail = String(error?.message || error?.code || "").trim().slice(0, 180);
+    const isRateLimited = Number(error?.status) === 429
+        || code.includes("over_email_send_rate_limit")
+        || code.includes("email_rate_limit_exceeded")
+        || /email rate limit exceeded|too many requests/i.test(detail);
+    const isUnauthorizedAddress = code.includes("email_address_not_authorized")
+        || /email address not authorized/i.test(detail);
+
+    if (isRateLimited || isUnauthorizedAddress) {
+        setStatus("خدمة البريد الافتراضية في Supabase محدودة؛ انتظر قليلًا ثم أعد المحاولة، أو أعدد SMTP مخصصًا لإرسال الرسائل إلى أي بريد.", true);
+        return;
+    }
+
+    const explanation = detail
+        ? `تعذر إرسال رابط إعادة التعيين. رسالة Supabase: ${detail}`
+        : "تعذر إرسال رابط إعادة التعيين. راجع إعدادات SMTP في Supabase.";
+    const englishExplanation = detail
+        ? `Could not send the reset link. Supabase says: ${detail}`
+        : "Could not send the reset link. Check SMTP settings in Supabase.";
+    const status = document.getElementById("dashboardStatus");
+    status.dataset.en = englishExplanation;
+    status.dataset.ar = explanation;
+    status.textContent = dashboardText(englishExplanation, explanation);
+    status.classList.add("is-error");
 }
 
 function showLogin(message, isError = false) {
@@ -187,14 +216,19 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
         const resetButton = document.getElementById("dashboardResetButton");
         resetButton.disabled = true;
-        const redirectTo = new URL("dashboard.html", window.location.href).href;
-        const { error } = await client.auth.resetPasswordForEmail(email, { redirectTo });
-        resetButton.disabled = false;
-        if (error) {
-            setStatus("تعذر إرسال رابط إعادة التعيين. راجع إعدادات البريد في Supabase.", true);
-            return;
+        try {
+            const redirectTo = new URL("dashboard.html", window.location.href).href;
+            const { error } = await client.auth.resetPasswordForEmail(email, { redirectTo });
+            if (error) {
+                setResetErrorStatus(error);
+                return;
+            }
+            setStatus("أُرسل رابط إعادة التعيين إلى بريد الحساب. افتحه ثم عيّن كلمة المرور الجديدة هنا.");
+        } catch (error) {
+            setResetErrorStatus(error);
+        } finally {
+            resetButton.disabled = false;
         }
-        setStatus("أُرسل رابط إعادة التعيين إلى بريد الحساب. افتحه ثم عيّن كلمة المرور الجديدة هنا.");
     });
 
     document.getElementById("dashboardNewPasswordForm").addEventListener("submit", async (event) => {
