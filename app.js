@@ -144,70 +144,6 @@ const GAME_ARTWORK = {
 
 const WEEKLY_PICKS = ["valorant","genshin-impact","league-of-legends","minecraft","warframe","roblox","world-of-warcraft","path-of-exile","delta-force","once-human"];
 
-// Static hosting can only remember download button clicks in this browser.
-const DOWNLOAD_CLICKS_KEY = "gamebox-download-clicks";
-
-function getDownloadClicks() {
-    try {
-        const saved = JSON.parse(localStorage.getItem(DOWNLOAD_CLICKS_KEY) || "{}");
-        return saved && typeof saved === "object" ? saved : {};
-    } catch {
-        return {};
-    }
-}
-
-function getTopDownloadedGames(preferredGames = []) {
-    const clicks = getDownloadClicks();
-    const tracked = Object.entries(clicks)
-        .sort((a, b) => Number(b[1]) - Number(a[1]))
-        .filter(([id, count]) => GAMES.some((game) => game.id === id) && Number(count) > 0)
-        .map(([id]) => GAMES.find((game) => game.id === id));
-    const fallback = WEEKLY_PICKS.map((id) => GAMES.find((game) => game.id === id));
-    const ranked = [...preferredGames, ...tracked, ...fallback];
-    return [...new Map(ranked.filter(Boolean).map((game) => [game.id, game])).values()].slice(0, 3);
-}
-
-let heroSlides = [];
-let heroSlideIndex = 0;
-
-function showHeroSlide(index) {
-    const stage = document.getElementById("heroSlideshow");
-    if (!stage) return;
-
-    if (!heroSlides.length) return;
-    heroSlideIndex = (index + heroSlides.length) % heroSlides.length;
-    stage.querySelectorAll(".hero-slide").forEach((slide, slideIndex) => {
-        slide.classList.toggle("is-active", slideIndex === heroSlideIndex);
-    });
-}
-
-function renderHeroBackground(preferredGames = []) {
-    const stage = document.getElementById("heroSlideshow");
-    if (!stage) return;
-
-    heroSlides = getTopDownloadedGames(preferredGames);
-    heroSlideIndex = 0;
-    stage.innerHTML = heroSlides.map((game, index) => {
-        const artwork = GAME_ARTWORK[game.id] || `images/games/${game.id}.svg`;
-        return `<img class="hero-slide${index === 0 ? " is-active" : ""}" src="${artwork}" alt="" ${index === 0 ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`;
-    }).join("");
-    showHeroSlide(heroSlideIndex);
-}
-
-async function syncHeroLeaderboard() {
-    if (!window.gameboxSupabase) return;
-
-    try {
-        const { data, error } = await window.gameboxSupabase.rpc("get_top_downloaded_game");
-        if (error || !data?.length) return;
-
-        const leaders = data.map((row) => GAMES.find((game) => game.id === row.game_id)).filter(Boolean);
-        if (leaders.length) renderHeroBackground(leaders);
-    } catch {
-        // Keep the local and fallback picks if the database is unavailable.
-    }
-}
-
 document.addEventListener("click", (event) => {
     const button = event.target.closest(".download-button");
     if (!button) return;
@@ -215,27 +151,11 @@ document.addEventListener("click", (event) => {
     const gameId = new URLSearchParams(window.location.search).get("game");
     if (!gameId || !GAMES.some((game) => game.id === gameId)) return;
 
-    const clicks = getDownloadClicks();
-    clicks[gameId] = (Number(clicks[gameId]) || 0) + 1;
-    try {
-        localStorage.setItem(DOWNLOAD_CLICKS_KEY, JSON.stringify(clicks));
-    } catch {
-        // The official download still opens if browser storage is unavailable.
-    }
-
     if (window.gameboxSupabase) {
-        window.gameboxSupabase.rpc("record_game_download", { p_game_id: gameId })
-            .then(({ error }) => {
-                if (!error) syncHeroLeaderboard();
-            })
-            .catch(() => {
-                // Local counts remain available if the database is unavailable.
-            });
+        window.gameboxSupabase.rpc("record_game_download", { p_game_id: gameId }).catch(() => {
+            // Official downloads still work if analytics is unavailable.
+        });
     }
-});
-
-window.addEventListener("storage", (event) => {
-    if (event.key === DOWNLOAD_CLICKS_KEY) renderHeroBackground();
 });
 const isArabic = () => localStorage.getItem("gamebox-language") === "ar";
 const tx = (en, ar) => isArabic() ? ar : en;
@@ -418,15 +338,6 @@ function renderDetails() {
 
 document.addEventListener("DOMContentLoaded", () => {
     initLanguage();
-    renderHeroBackground();
-    document.getElementById("heroNextSlide")?.addEventListener("click", () => showHeroSlide(heroSlideIndex + 1));
-    window.setInterval(() => {
-        if (document.visibilityState === "visible") showHeroSlide(heroSlideIndex + 1);
-    }, 15000);
-    syncHeroLeaderboard();
-    window.setInterval(() => {
-        if (document.visibilityState === "visible") syncHeroLeaderboard();
-    }, 60000);
     renderHome(); renderAllGames(); renderCategories(); renderTrending(); renderDetails();
 });
 
