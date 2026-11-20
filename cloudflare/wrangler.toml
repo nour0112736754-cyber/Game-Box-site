@@ -1,0 +1,8 @@
+name = "game-box-analytics"
+main = "worker.js"
+compatibility_date = "2026-11-20"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "gamebox-analytics"
+database_id = "502ab643-f112-4b9b-b417-fb9685699eb2"

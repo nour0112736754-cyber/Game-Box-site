@@ -1,15 +1,20 @@
 # GAME BOX
 
-A bilingual static game catalogue with publisher links and Supabase click analytics.
+A bilingual, static game catalogue published with GitHub Pages. Game pages link directly to official publishers.
 
-## Database setup
+## Download click backend
 
-See `supabase/SETUP_AR.md`. Run `supabase/schema.sql` in the Supabase SQL Editor to configure aggregate download-click analytics. The site does not create anonymous Auth users.
+Analytics uses Cloudflare D1 through a deployed Cloudflare Worker. The database is named `gamebox-analytics`; the click table and indexes are installed, and the Worker is bound using `DB`.
 
-## Analytics dashboard
+The public endpoint is configured in `analytics-config.js`. It records the game ID and date when a visitor clicks an official publisher download button. It does not store visitor identity or confirm that a download completed. The Worker health endpoint is `https://game-box-analytics.nour0112736754.workers.dev/health`.
 
-Open `dashboard.html` on the deployed site to view total clicks, clicks today, active games, game rankings, and the last seven days of activity.
+The previous statistics dashboard and local Supabase integration were removed. The old remote Supabase project and its data were not deleted.
 
-## Deployment
+## Pages
+- index.html — home
+- all-games.html — browse and filter all games
+- categories.html — category browser
+- trending.html — curated popular picks
+- game-details.html?game=... — game details
 
-The site is static and can be published with GitHub Pages. Set the Supabase project URL and browser-safe publishable key in `supabase-config.js`. Never put a service-role key or database password in a browser file.
+More backend details are in `cloudflare/SETUP_AR.md`.

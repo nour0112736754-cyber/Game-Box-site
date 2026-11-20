@@ -147,15 +147,17 @@ const WEEKLY_PICKS = ["valorant","genshin-impact","league-of-legends","minecraft
 document.addEventListener("click", (event) => {
     const button = event.target.closest(".download-button");
     if (!button) return;
-
     const gameId = new URLSearchParams(window.location.search).get("game");
-    if (!gameId || !GAMES.some((game) => game.id === gameId)) return;
-
-    if (window.gameboxSupabase) {
-        window.gameboxSupabase.rpc("record_game_download", { p_game_id: gameId }).catch(() => {
-            // Official downloads still work if analytics is unavailable.
-        });
-    }
+    const endpoint = window.GAMEBOX_ANALYTICS_CONFIG?.endpoint;
+    if (!gameId || !GAMES.some((game) => game.id === gameId) || !endpoint) return;
+    fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ gameId }),
+        keepalive: true
+    }).catch(() => {
+        // Publisher downloads continue if analytics is unavailable.
+    });
 });
 const isArabic = () => localStorage.getItem("gamebox-language") === "ar";
 const tx = (en, ar) => isArabic() ? ar : en;
@@ -336,23 +338,8 @@ function renderDetails() {
       <section class="security-section"><div class="security-icon" aria-hidden="true">🛡️</div><div class="security-copy"><p class="eyebrow">${tx("SAFE DOWNLOADS","تنزيل آمن")}</p><h2>${tx("Use the official publisher link","استخدم رابط الناشر الرسمي")}</h2><p>${tx("GAME BOX does not host game files. Downloads continue on the publisher's own site or launcher.","موقع GAME BOX لا يستضيف ملفات الألعاب. يكمل التنزيل من موقع الناشر أو مشغّله الرسمي.")}</p></div></section>`;
 }
 
-function addDashboardShortcut() {
-    const nav = document.querySelector(".header-links");
-    if (!nav || window.location.pathname.endsWith("/dashboard.html")) return;
-
-    const link = document.createElement("a");
-    link.className = "dashboard-quick-link";
-    link.href = "dashboard.html";
-    link.innerHTML = `<span aria-hidden="true">▤</span><span data-en="Statistics" data-ar="الإحصائيات">${tx("Statistics", "الإحصائيات")}</span>`;
-    link.setAttribute("aria-label", tx("Open download statistics", "فتح إحصائيات التنزيل"));
-    const themeButton = nav.querySelector("[data-theme-toggle]");
-    if (themeButton) nav.insertBefore(link, themeButton);
-    else nav.append(link);
-}
-
 document.addEventListener("DOMContentLoaded", () => {
     initLanguage();
-    addDashboardShortcut();
     renderHome(); renderAllGames(); renderCategories(); renderTrending(); renderDetails();
 });
 
