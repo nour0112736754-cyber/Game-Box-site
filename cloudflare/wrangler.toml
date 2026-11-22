@@ -6,3 +6,19 @@ compatibility_date = "2026-11-20"
 binding = "DB"
 database_name = "gamebox-analytics"
 database_id = "502ab643-f112-4b9b-b417-fb9685699eb2"
+# Approximate, per-IP rate limiting for anonymous analytics and dashboard login.
+[[ratelimits]]
+name = "DOWNLOAD_RATE_LIMITER"
+namespace_id = "722112201"
+
+  [ratelimits.simple]
+  limit = 30
+  period = 60
+
+[[ratelimits]]
+name = "LOGIN_RATE_LIMITER"
+namespace_id = "722112202"
+
+  [ratelimits.simple]
+  limit = 5
+  period = 60

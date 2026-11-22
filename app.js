@@ -150,6 +150,16 @@ document.addEventListener("click", (event) => {
     const gameId = new URLSearchParams(window.location.search).get("game");
     const endpoint = window.GAMEBOX_ANALYTICS_CONFIG?.endpoint;
     if (!gameId || !GAMES.some((game) => game.id === gameId) || !endpoint) return;
+    // Ignore accidental double-clicks for the same game in this browser tab.
+    const clickKey = `gamebox-last-click-${gameId}`;
+    const now = Date.now();
+    try {
+        const lastClick = Number(sessionStorage.getItem(clickKey) || 0);
+        if (now - lastClick < 4000) return;
+        sessionStorage.setItem(clickKey, String(now));
+    } catch {
+        // Continue without client-side de-duplication if storage is unavailable.
+    }
     fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -342,4 +352,5 @@ document.addEventListener("DOMContentLoaded", () => {
     initLanguage();
     renderHome(); renderAllGames(); renderCategories(); renderTrending(); renderDetails();
 });
+
 

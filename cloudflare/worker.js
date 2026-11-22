@@ -73,6 +73,18 @@ function constantTimeEqual(left, right) {
   return difference === 0;
 }
 
+async function checkRateLimit(binding, request, scope) {
+  const clientAddress = request.headers.get("CF-Connecting-IP") || "local";
+  const digest = await crypto.subtle.digest("SHA-256", encoder.encode(clientAddress));
+  const key = `${scope}:${base64Url(digest)}`;
+  try {
+    const result = await binding.limit({ key });
+    return { available: true, success: result.success };
+  } catch {
+    return { available: false, success: false };
+  }
+}
+
 function readCookie(request, name) {
   const cookieHeader = request.headers.get("Cookie") || "";
   const prefix = `${name}=`;
@@ -90,10 +102,10 @@ async function hasDashboardSession(request, password) {
   return constantTimeEqual(token, expected);
 }
 
-function loginPage(error = false) {
+function loginPage(error = false, rateLimited = false) {
   return `<!doctype html><html lang="ar" dir="rtl" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark light"><title>دخول لوحة الإحصائيات · GAME BOX</title><style>
     :root{font-family:system-ui,"Segoe UI",sans-serif;color-scheme:dark;--bg:#080d1a;--panel:#151d35;--text:#f8fafc;--muted:#a8b3cf;--border:#344363;--accent:#22d3ee;--purple:#8b5cf6}*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--text);background:radial-gradient(ellipse at 85% 8%,#38235d 0,transparent 34%),radial-gradient(ellipse at 8% 75%,#0b3040 0,transparent 35%),var(--bg)}:root[data-theme="light"]{color-scheme:light;--bg:#f3f6fc;--panel:#fff;--text:#172033;--muted:#58647b;--border:#c7d2e5;--accent:#007f98;--purple:#7045d8}header{height:74px;padding:12px max(22px,5vw);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:color-mix(in srgb,var(--bg) 90%,transparent)}.brand{color:var(--text);text-decoration:none;font-weight:900;letter-spacing:.04em}.brand span{color:var(--accent)}.actions{display:flex;gap:9px}button,input{font:inherit}.small{border:1px solid var(--border);border-radius:10px;background:var(--panel);color:var(--text);padding:9px 12px;cursor:pointer}.wrap{width:min(680px,92%);margin:clamp(36px,9vh,90px) auto}.eyebrow{color:var(--accent);font-size:13px;font-weight:800;letter-spacing:.15em}h1{font-size:clamp(32px,6vw,48px);margin:.3em 0}.intro{color:var(--muted);line-height:1.8}.card{margin-top:28px;padding:clamp(22px,5vw,34px);border:1px solid var(--border);border-radius:20px;background:var(--panel);box-shadow:0 24px 70px #0002}.card h2{margin:0 0 8px}.card p{color:var(--muted);line-height:1.7}label{display:block;margin:20px 0 8px;font-weight:700}input{width:100%;padding:14px;border:1px solid var(--border);border-radius:12px;background:var(--bg);color:var(--text)}input:focus{outline:2px solid var(--accent);outline-offset:2px}.submit{width:100%;margin-top:15px;border:0;border-radius:12px;padding:14px;color:white;background:var(--purple);font-weight:800;cursor:pointer}.submit:hover{filter:brightness(1.1)}.error{min-height:24px;color:#fb7185}.error[hidden]{display:none}
-    </style></head><body><header><a class="brand" href="https://nour0112736754-cyber.github.io/Game-Box-site/" aria-label="GAME BOX">GAME <span>BOX</span></a><div class="actions"><button class="small" id="language" type="button">English</button><button class="small" id="theme" type="button" aria-label="التبديل إلى الوضع الفاتح">☀</button></div></header><main class="wrap"><p class="eyebrow" data-en="PRIVATE ANALYTICS" data-ar="إحصائيات خاصة">إحصائيات خاصة</p><h1 data-en="Download statistics" data-ar="إحصائيات التنزيل">إحصائيات التنزيل</h1><p class="intro" data-en="A clear view of official download clicks, including a dated daily activity chart." data-ar="عرض واضح لنقرات أزرار التنزيل الرسمية، مع رسم يومي يوضح تواريخ النشاط.">عرض واضح لنقرات أزرار التنزيل الرسمية، مع رسم يومي يوضح تواريخ النشاط.</p><section class="card"><h2 data-en="Dashboard sign in" data-ar="دخول لوحة الإحصائيات">دخول لوحة الإحصائيات</h2><p data-en="Enter the dashboard password to view the report." data-ar="أدخل كلمة مرور لوحة الإحصائيات لعرض التقرير.">أدخل كلمة مرور لوحة الإحصائيات لعرض التقرير.</p><form method="post" action="/dashboard/login"><label for="password" data-en="Password" data-ar="كلمة المرور">كلمة المرور</label><input id="password" name="password" type="password" autocomplete="current-password" required><button class="submit" type="submit" data-en="Open dashboard" data-ar="فتح لوحة الإحصائيات">فتح لوحة الإحصائيات</button></form><p class="error"${error ? "" : " hidden"} data-en="The password was not accepted. Please try again." data-ar="كلمة المرور غير صحيحة. حاول مرة أخرى.">${error ? "كلمة المرور غير صحيحة. حاول مرة أخرى." : ""}</p></section></main><script>
+    </style></head><body><header><a class="brand" href="https://nour0112736754-cyber.github.io/Game-Box-site/" aria-label="GAME BOX">GAME <span>BOX</span></a><div class="actions"><button class="small" id="language" type="button">English</button><button class="small" id="theme" type="button" aria-label="التبديل إلى الوضع الفاتح">☀</button></div></header><main class="wrap"><p class="eyebrow" data-en="PRIVATE ANALYTICS" data-ar="إحصائيات خاصة">إحصائيات خاصة</p><h1 data-en="Download statistics" data-ar="إحصائيات التنزيل">إحصائيات التنزيل</h1><p class="intro" data-en="A clear view of official download clicks, including a dated daily activity chart." data-ar="عرض واضح لنقرات أزرار التنزيل الرسمية، مع رسم يومي يوضح تواريخ النشاط.">عرض واضح لنقرات أزرار التنزيل الرسمية، مع رسم يومي يوضح تواريخ النشاط.</p><section class="card"><h2 data-en="Dashboard sign in" data-ar="دخول لوحة الإحصائيات">دخول لوحة الإحصائيات</h2><p data-en="Enter the dashboard password to view the report." data-ar="أدخل كلمة مرور لوحة الإحصائيات لعرض التقرير.">أدخل كلمة مرور لوحة الإحصائيات لعرض التقرير.</p><form method="post" action="/dashboard/login"><label for="password" data-en="Password" data-ar="كلمة المرور">كلمة المرور</label><input id="password" name="password" type="password" autocomplete="current-password" required><button class="submit" type="submit" data-en="Open dashboard" data-ar="فتح لوحة الإحصائيات">فتح لوحة الإحصائيات</button></form><p class="error"${error ? "" : " hidden"} data-en="${rateLimited ? "Too many attempts. Wait one minute, then try again." : "The password was not accepted. Please try again."}" data-ar="${rateLimited ? "محاولات كثيرة. انتظر دقيقة ثم حاول مرة أخرى." : "كلمة المرور غير صحيحة. حاول مرة أخرى."}">${error ? (rateLimited ? "محاولات كثيرة. انتظر دقيقة ثم حاول مرة أخرى." : "كلمة المرور غير صحيحة. حاول مرة أخرى.") : ""}</p></section></main><script>
     const root=document.documentElement,langButton=document.getElementById('language'),themeButton=document.getElementById('theme');function setLang(lang){root.lang=lang;root.dir=lang==='ar'?'rtl':'ltr';document.querySelectorAll('[data-en][data-ar]').forEach(el=>el.textContent=el.dataset[lang]);langButton.textContent=lang==='ar'?'English':'العربية';try{localStorage.setItem('gamebox-dashboard-language',lang)}catch{}}try{setLang(localStorage.getItem('gamebox-dashboard-language')==='en'?'en':'ar');const saved=localStorage.getItem('gamebox-dashboard-theme');if(saved==='light')root.dataset.theme='light'}catch{}function updateThemeButton(){const light=root.dataset.theme==='light';themeButton.textContent=light?'☾':'☀';themeButton.setAttribute('aria-label',root.lang==='ar'?(light?'التبديل إلى الوضع الداكن':'التبديل إلى الوضع الفاتح'):(light?'Switch to dark mode':'Switch to light mode'))}updateThemeButton();themeButton.addEventListener('click',()=>{root.dataset.theme=root.dataset.theme==='light'?'dark':'light';try{localStorage.setItem('gamebox-dashboard-theme',root.dataset.theme)}catch{}updateThemeButton()});langButton.addEventListener('click',()=>setLang(root.lang==='ar'?'en':'ar'));
     </script></body></html>`;
 }
@@ -272,11 +284,30 @@ export default {
     }
     if (url.pathname === "/dashboard/login" && request.method === "POST") {
       if (!env.DASHBOARD_PASSWORD) return new Response("Dashboard password is not configured.", { status: 503 });
+      if (!env.LOGIN_RATE_LIMITER) return new Response("Login rate limiting is not configured.", { status: 503 });
+      const loginLimit = await checkRateLimit(env.LOGIN_RATE_LIMITER, request, "dashboard-login");
+      if (!loginLimit.available) return new Response("Login rate limiting is temporarily unavailable.", { status: 503 });
+      if (!loginLimit.success) {
+        return new Response(loginPage(true, true), {
+          status: 429,
+          headers: {
+            "Content-Type": "text/html; charset=utf-8",
+            "Cache-Control": "no-store",
+            "Retry-After": "60",
+            "X-Content-Type-Options": "nosniff",
+            "Referrer-Policy": "no-referrer",
+            "X-Frame-Options": "DENY",
+            "Content-Security-Policy": "default-src 'none'; connect-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'"
+          }
+        });
+      }
+      const contentLength = Number(request.headers.get("Content-Length") || 0);
+      if (contentLength > 4096) return new Response("Request too large", { status: 413, headers: { "Cache-Control": "no-store" } });
       let form;
       try { form = await request.formData(); }
       catch { return securePage(loginPage(true), { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" }); }
       const submitted = String(form.get("password") || "");
-      if (!constantTimeEqual(submitted, env.DASHBOARD_PASSWORD)) {
+      if (submitted.length > 256 || !constantTimeEqual(submitted, env.DASHBOARD_PASSWORD)) {
         return securePage(loginPage(true), { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" });
       }
       const expiry = String(Math.floor(Date.now() / 1000) + SESSION_SECONDS);
@@ -314,6 +345,14 @@ export default {
     }
     if (!ALLOWED_ORIGINS.has(origin)) {
       return json({ error: "Origin not allowed" }, 403, origin);
+    }
+    if (!env.DOWNLOAD_RATE_LIMITER) {
+      return json({ error: "Analytics rate limiting is not configured" }, 503, origin);
+    }
+    const downloadLimit = await checkRateLimit(env.DOWNLOAD_RATE_LIMITER, request, "download-click");
+    if (!downloadLimit.available) return json({ error: "Analytics rate limiting is temporarily unavailable" }, 503, origin);
+    if (!downloadLimit.success) {
+      return json({ error: "Too many clicks. Try again shortly." }, 429, origin);
     }
     let payload;
     try { payload = await request.json(); }
