@@ -8,7 +8,7 @@ Analytics uses Cloudflare D1 through a deployed Cloudflare Worker. The database 
 
 The public endpoint is configured in `analytics-config.js`. It records the game ID and date when a visitor clicks an official publisher download button. It does not store visitor identity or confirm that a download completed. The Worker health endpoint is `https://game-box-analytics.nour0112736754.workers.dev/health`.
 
-The private statistics dashboard is served by the same Cloudflare Worker at `/dashboard`. It reads aggregate daily and per-game click counts from D1. Access requires the `DASHBOARD_PASSWORD` Worker secret; no visitor identity is recorded.
+The private statistics dashboard is served by the same Cloudflare Worker at `/dashboard`. It reads aggregate daily and per-game click counts from D1, with daily dates calculated using Africa/Cairo time. Access requires the `DASHBOARD_PASSWORD` Worker secret; no visitor identity is recorded.
 
 ## Pages
 - index.html — home
